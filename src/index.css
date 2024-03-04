@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 0 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +7,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Navbar styles */
+.navbar {
+  background-color: #eeffe2;
+  border-color: #008080;
+  border-width: 1px;
+  border-style: solid;
+  color: #008080;
+  padding: 0 1%;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 8%;
+  font-size: 1.2vw;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: #008080;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav li {
+  margin-right: 2%;
+}
+
+.navbar-nav li a {
+  text-decoration: none;
+  color: #008080;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  margin-right: 2%;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #eeffe2;
+  color: #008080;
+  text-align: center;
+  padding: 2%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8%;
+  font-size: 1.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
