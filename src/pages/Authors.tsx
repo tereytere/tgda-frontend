@@ -8,7 +8,7 @@ const Authors: React.FC = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       try {
-        const response = await axios.get<Author[]>('/authors');
+        const response = await axios.get<Author[]>('http://localhost:8000/authors');
         setAuthors(response.data);
       } catch (error) {
         console.error('Error fetching authors:', error);
@@ -19,34 +19,36 @@ const Authors: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Autores</h1>
-      <ul>
-        {authors.map(author => (
-          <li key={author.id}>
-            <h2>{author.name}</h2>
-            {author.image && <img src={author.image} alt={author.name} />} {/* Render image if present */}
-            {author.youtube && <p>YouTube: <a href={author.youtube}>{author.youtube}</a></p>} {/* Render YouTube link if present */}
-            {author.instagram && <p>Instagram: <a href={author.instagram}>{author.instagram}</a></p>} {/* Render Instagram link if present */}
-            {author.webpage && <p>Página Web: <a href={author.webpage}>{author.webpage}</a></p>} {/* Render website link if present */}
-            {author.podcast && <p>Podcast: <a href={author.podcast}>{author.podcast}</a></p>} {/* Render podcast link if present */}
-            {author.language && <p>Idioma: {author.language}</p>} {/* Render language if present */}
-            {author.themes && (
-              <div>
-                <h3>Temas:</h3>
-                <ul>
-                  {author.themes.map(theme => (
-                    <li key={theme.id}>
-                      <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className='content'>
+        <h2>Autores</h2>
+        <ul>
+          {authors.map(author => (
+            <li key={author.id}>
+              <h3>{author.name}</h3>
+              {author.image && <img src={author.image} alt={author.name} />} {/* Render image if present */}
+              {author.youtube && <p>YouTube: <a href={author.youtube}>{author.youtube}</a></p>} {/* Render YouTube link if present */}
+              {author.instagram && <p>Instagram: <a href={author.instagram}>{author.instagram}</a></p>} {/* Render Instagram link if present */}
+              {author.webpage && <p>Página Web: <a href={author.webpage}>{author.webpage}</a></p>} {/* Render website link if present */}
+              {author.podcast && <p>Podcast: <a href={author.podcast}>{author.podcast}</a></p>} {/* Render podcast link if present */}
+              {author.language && <p>Idioma: {author.language}</p>} {/* Render language if present */}
+              {author.themes && (
+                <div>
+                  <h4>Temas:</h4>
+                  <ul>
+                    {author.themes.map(theme => (
+                      <li key={theme.id}>
+                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

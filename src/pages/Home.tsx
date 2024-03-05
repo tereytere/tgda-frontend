@@ -4,7 +4,9 @@
 export default function Home() {
   return (
     <>
-      <h1>Tu Granito de Arena</h1>
+      <div className='content'>
+        <h1>Tu Granito de Arena</h1>
+      </div>
     </>
   )
 }

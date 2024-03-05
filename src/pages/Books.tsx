@@ -8,7 +8,7 @@ const Books: React.FC = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get<Post[]>('/posts?type=libro');
+        const response = await axios.get<Post[]>('http://localhost:8000/posts?type=libro');
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -19,32 +19,34 @@ const Books: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Libros</h1>
-      <ul>
-        {books.map(book => (
-          <li key={book.id}>
-            <h2>{book.title}</h2>
-            <p>{book.body}</p>
-            {book.image && <img src={book.image} alt={book.title} />} {/* Render image if present */}
-            {book.url && <p><a href={book.url} target="_blank" rel="noopener noreferrer">{book.url}</a></p>} {/* Render URL if present */}
-            <p>Autor: {book.author.name}</p>
-            {book.themes && (
-              <div>
-                <h3>Temas:</h3>
-                <ul>
-                  {book.themes.map(theme => (
-                    <li key={theme.id}>
-                      <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className='content'>
+        <h2>Libros</h2>
+        <ul>
+          {books.map(book => (
+            <li key={book.id}>
+              <h3>{book.title}</h3>
+              <p>{book.body}</p>
+              {book.image && <img src={book.image} alt={book.title} />}
+              {book.url && <p><a href={book.url} target="_blank" rel="noopener noreferrer">{book.url}</a></p>}
+              <p>Autor: {book.author.name}</p>
+              {book.themes && (
+                <div>
+                  <h4>Temas:</h4>
+                  <ul>
+                    {book.themes.map(theme => (
+                      <li key={theme.id}>
+                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

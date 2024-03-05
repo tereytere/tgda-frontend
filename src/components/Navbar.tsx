@@ -24,6 +24,9 @@ export default function Navbar() {
           <li className="nav-item">
             <Link to="/youtube" className="nav-link">YouTube</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/ayuda" className="nav-link">Ayuda</Link>
+          </li>
         </ul>
         <form className="search-form">
           <input className="search-input" type="search" placeholder="Buscar" aria-label="Search" />

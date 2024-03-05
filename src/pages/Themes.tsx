@@ -5,7 +5,9 @@
 export default function Themes() {
   return (
     <>
-      <h2>Themes</h2>
+      <div className='content'>
+        <h2>Themes</h2>
+      </div>
     </>
   )
 }
