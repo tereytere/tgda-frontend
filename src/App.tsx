@@ -13,6 +13,7 @@ import Webpages from "./pages/Webpages";
 import Youtube from "./pages/Youtube";
 import Error from "./pages/Error";
 import theme from "./theme";
+import Podcasts from "./pages/Podcasts";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/autores" element={<Authors />} />
           <Route path="/libros" element={<Books />} />
           <Route path="/instagram" element={<Instagram />} />
+          <Route path="/podcasts" element={<Podcasts />} />
           <Route path="/peliculas" element={<Movies />} />
           <Route path="/temas" element={<Themes />} />
           <Route path="/paginasweb" element={<Webpages />} />

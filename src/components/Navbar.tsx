@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="container">
         <Link to="/" className="navbar-brand">
-          <img src="../../public/favicon.ico" alt="Logo" width="40" height="34" className="d-inline-block align-text-top" />
+          <img src="/favicon.ico" alt="Logo" width="40" height="34" className="d-inline-block align-text-top" />
           TuGranitoDeArena
         </Link>
         <ul className="navbar-nav">
@@ -14,6 +14,9 @@ export default function Navbar() {
           </li>
           <li className="nav-item">
             <Link to="/peliculas" className="nav-link">Películas</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/podcasts" className="nav-link">Podcasts</Link>
           </li>
           <li className="nav-item">
             <Link to="/instagram" className="nav-link">Instagram</Link>

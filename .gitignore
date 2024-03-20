@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+#SFTP
+.vscode
+
 #package-lock.json
 package-lock.json
