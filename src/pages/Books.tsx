@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface';
+import Themes from '../components/Themes';
 
 const Books: React.FC = () => {
   const [books, setBooks] = useState<Post[]>([]);
@@ -19,34 +22,29 @@ const Books: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <div className='content'>
-        <h2>Libros</h2>
-        <ul>
-          {books.map(book => (
-            <li key={book.id}>
-              <h3>{book.title}</h3>
-              <p>{book.body}</p>
-              {book.image && <img src={book.image} alt={book.title} />}
-              {book.url && <p><a href={book.url} target="_blank" rel="noopener noreferrer">{book.url}</a></p>}
-              <p>Autor: {book.author.name}</p>
-              {book.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {book.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
+    <div className='content'>
+      <h2>Libros</h2>
+      <ul>
+        {books.map(book => (
+          <li key={book.id}>
+            <h3>{book.title}</h3>
+            <p>{book.body}</p>
+            {book.image && <img src={book.image} alt={book.title} />}
+            {book.url && <p><a href={book.url} target="_blank" rel="noopener noreferrer">{book.url}</a></p>}
+            {typeof book.author === 'object' ? (
+              <p>
+                Autor: <Link to={`/autor/${(book.author as Author).id}`}>
+                  {(book.author as Author).name}
+                </Link>
+              </p>
+            ) : (
+              <p>Autor: {book.author}</p>
+            )}
+            {book.themes && <Themes themes={book.themes} />}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

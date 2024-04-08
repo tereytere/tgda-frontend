@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface'
+import Themes from '../components/Themes';
 
 const Webpages: React.FC = () => {
   const [webpages, setWebpage] = useState<Post[]>([]);
@@ -29,19 +31,8 @@ const Webpages: React.FC = () => {
               <p>{webpage.body}</p>
               {webpage.image && <img src={webpage.image} alt={webpage.title} />}
               {webpage.url && <p><a href={webpage.url} target="_blank" rel="noopener noreferrer">{webpage.url}</a></p>}
-              <p>Autor: {webpage.author.name}</p>
-              {webpage.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {webpage.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <p>Autor: {typeof webpage.author === 'string' ? webpage.author : (webpage.author as Author).name}</p>
+            {webpage.themes && <Themes themes={webpage.themes} />}
             </li>
           ))}
         </ul>

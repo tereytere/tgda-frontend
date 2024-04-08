@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface'
+import Themes from '../components/Themes';
 
 const Podcasts: React.FC = () => {
   const [podcasts, setPodcast] = useState<Post[]>([]);
@@ -29,19 +31,8 @@ const Podcasts: React.FC = () => {
               <p>{podcast.body}</p>
               {podcast.image && <img src={podcast.image} alt={podcast.title} />}
               {podcast.url && <p><a href={podcast.url} target="_blank" rel="noopener noreferrer">{podcast.url}</a></p>}
-              <p>Autor: {podcast.author.name}</p>
-              {podcast.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {podcast.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <p>Autor: {typeof podcast.author === 'string' ? podcast.author : (podcast.author as Author).name}</p>
+            {podcast.themes && <Themes themes={podcast.themes} />}
             </li>
           ))}
         </ul>

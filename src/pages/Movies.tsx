@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface'
+import Themes from '../components/Themes';
 
 const Movies: React.FC = () => {
   const [movies, setMovie] = useState<Post[]>([]);
@@ -29,19 +31,8 @@ const Movies: React.FC = () => {
               <p>{movie.body}</p>
               {movie.image && <img src={movie.image} alt={movie.title} />}
               {movie.url && <p><a href={movie.url} target="_blank" rel="noopener noreferrer">{movie.url}</a></p>}
-              <p>Autor: {movie.author.name}</p>
-              {movie.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {movie.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <p>Autor: {typeof movie.author === 'string' ? movie.author : (movie.author as Author).name}</p>
+            {movie.themes && <Themes themes={movie.themes} />}
             </li>
           ))}
         </ul>

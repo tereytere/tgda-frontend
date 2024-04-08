@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface'
+import Themes from '../components/Themes';
 
 const Instagram: React.FC = () => {
   const [instagrams, setInstagram] = useState<Post[]>([]);
@@ -29,19 +31,8 @@ const Instagram: React.FC = () => {
               <p>{instagram.body}</p>
               {instagram.image && <img src={instagram.image} alt={instagram.title} />}
               {instagram.url && <p><a href={instagram.url} target="_blank" rel="noopener noreferrer">{instagram.url}</a></p>}
-              <p>Autor: {instagram.author.name}</p>
-              {instagram.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {instagram.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <p>Autor: {typeof instagram.author === 'string' ? instagram.author : (instagram.author as Author).name}</p>
+            {instagram.themes && <Themes themes={instagram.themes} />}
             </li>
           ))}
         </ul>

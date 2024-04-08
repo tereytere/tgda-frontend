@@ -1,6 +1,34 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios, { AxiosError } from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { SearchResults } from '../interfaces/search.interface';
 
 export default function Navbar() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState<Error | AxiosError<unknown, unknown> | null>(null);
+  const navigate = useNavigate();
+
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get<SearchResults>('http://localhost:8000/search', {
+        params: { query: searchQuery }
+      });
+
+      // Redirect to search results page with search results as prop
+      navigate('/search-results', { state: { searchResults: response.data } });
+    } catch (error: unknown) {
+      // Handle error
+      if (axios.isAxiosError(error)) {
+        setError(error as AxiosError<unknown, unknown>);
+      } else {
+        setError(new Error('An unknown error occurred'));
+      }
+      console.error('Error searching:', error);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -31,10 +59,18 @@ export default function Navbar() {
             <Link to="/ayuda" className="nav-link">Ayuda</Link>
           </li>
         </ul>
-        <form className="search-form">
-          <input className="search-input" type="search" placeholder="Buscar" aria-label="Search" />
+        <form className="search-form" onSubmit={handleSearch}>
+          <input
+            className="search-input"
+            type="search"
+            placeholder="Buscar"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
           <button className="search-button" type="submit">Buscar</button>
         </form>
+        {error && error.message && <div>Error: {error.message}</div>}
       </div>
     </nav>
   );

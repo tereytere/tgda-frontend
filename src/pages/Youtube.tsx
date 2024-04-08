@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Post } from '../interfaces/post.interface';
+import { Author } from '../interfaces/author.interface'
+import Themes from '../components/Themes';
 
 const Youtube: React.FC = () => {
   const [youtubes, setYoutube] = useState<Post[]>([]);
@@ -29,19 +31,8 @@ const Youtube: React.FC = () => {
               <p>{youtube.body}</p>
               {youtube.image && <img src={youtube.image} alt={youtube.title} />}
               {youtube.url && <p><a href={youtube.url} target="_blank" rel="noopener noreferrer">{youtube.url}</a></p>}
-              <p>Autor: {youtube.author.name}</p>
-              {youtube.themes && (
-                <div>
-                  <h4>Temas:</h4>
-                  <ul>
-                    {youtube.themes.map(theme => (
-                      <li key={theme.id}>
-                        <a href={`/themes/${theme.id}`}>{theme.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <p>Autor: {typeof youtube.author === 'string' ? youtube.author : (youtube.author as Author).name}</p>
+            {youtube.themes && <Themes themes={youtube.themes} />}
             </li>
           ))}
         </ul>
