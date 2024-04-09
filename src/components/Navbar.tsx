@@ -16,8 +16,11 @@ export default function Navbar() {
         params: { query: searchQuery }
       });
 
-      // Redirect to search results page with search results as prop
-      navigate('/search-results', { state: { searchResults: response.data } });
+      // Redirect to search results page with search query in URL
+      navigate(`/resultados/${searchQuery}`, { state: { searchResults: response.data } });
+
+      // Clear the search input after successful search
+      setSearchQuery('');
     } catch (error: unknown) {
       // Handle error
       if (axios.isAxiosError(error)) {
@@ -28,6 +31,7 @@ export default function Navbar() {
       console.error('Error searching:', error);
     }
   };
+
 
   return (
     <nav className="navbar">

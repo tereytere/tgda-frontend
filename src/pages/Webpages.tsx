@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/post.interface';
 import { Author } from '../interfaces/author.interface'
 import Themes from '../components/Themes';
@@ -31,7 +32,15 @@ const Webpages: React.FC = () => {
               <p>{webpage.body}</p>
               {webpage.image && <img src={webpage.image} alt={webpage.title} />}
               {webpage.url && <p><a href={webpage.url} target="_blank" rel="noopener noreferrer">{webpage.url}</a></p>}
-              <p>Autor: {typeof webpage.author === 'string' ? webpage.author : (webpage.author as Author).name}</p>
+              {typeof webpage.author === 'object' ? (
+              <p>
+                Autor: <Link to={`/autor/${(webpage.author as Author).id}`}>
+                  {(webpage.author as Author).name}
+                </Link>
+              </p>
+            ) : (
+              <p>Autor: {webpage.author}</p>
+            )}
             {webpage.themes && <Themes themes={webpage.themes} />}
             </li>
           ))}

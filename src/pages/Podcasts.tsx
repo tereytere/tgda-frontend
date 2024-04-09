@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/post.interface';
 import { Author } from '../interfaces/author.interface'
 import Themes from '../components/Themes';
@@ -31,8 +32,16 @@ const Podcasts: React.FC = () => {
               <p>{podcast.body}</p>
               {podcast.image && <img src={podcast.image} alt={podcast.title} />}
               {podcast.url && <p><a href={podcast.url} target="_blank" rel="noopener noreferrer">{podcast.url}</a></p>}
-              <p>Autor: {typeof podcast.author === 'string' ? podcast.author : (podcast.author as Author).name}</p>
-            {podcast.themes && <Themes themes={podcast.themes} />}
+              {typeof podcast.author === 'object' ? (
+                <p>
+                  Autor: <Link to={`/autor/${(podcast.author as Author).id}`}>
+                    {(podcast.author as Author).name}
+                  </Link>
+                </p>
+              ) : (
+                <p>Autor: {podcast.author}</p>
+              )}
+              {podcast.themes && <Themes themes={podcast.themes} />}
             </li>
           ))}
         </ul>

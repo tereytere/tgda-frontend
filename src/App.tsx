@@ -39,7 +39,7 @@ export default function App() {
           <Route path="/paginasweb" element={<Webpages />} />
           <Route path="/youtube" element={<Youtube />} />
           <Route path="/ayuda" element={<Help />} />
-          <Route path="/resultados" element={<SearchResultsPage />} />
+          <Route path="/resultados/:query" element={<SearchResultsPage />} />
           <Route path="/pokemon" element={<Pokemon />} />
           <Route path="/*" element={<Error />} />
         </Routes>

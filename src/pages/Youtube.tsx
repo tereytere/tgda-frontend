@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/post.interface';
 import { Author } from '../interfaces/author.interface'
 import Themes from '../components/Themes';
@@ -31,7 +32,15 @@ const Youtube: React.FC = () => {
               <p>{youtube.body}</p>
               {youtube.image && <img src={youtube.image} alt={youtube.title} />}
               {youtube.url && <p><a href={youtube.url} target="_blank" rel="noopener noreferrer">{youtube.url}</a></p>}
-              <p>Autor: {typeof youtube.author === 'string' ? youtube.author : (youtube.author as Author).name}</p>
+              {typeof youtube.author === 'object' ? (
+              <p>
+                Autor: <Link to={`/autor/${(youtube.author as Author).id}`}>
+                  {(youtube.author as Author).name}
+                </Link>
+              </p>
+            ) : (
+              <p>Autor: {youtube.author}</p>
+            )}
             {youtube.themes && <Themes themes={youtube.themes} />}
             </li>
           ))}
