@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Theme } from '../interfaces/theme.interface';
 import { Post } from '../interfaces/post.interface';
 import { Author } from '../interfaces/author.interface';
@@ -15,26 +16,30 @@ const Help: React.FC = () => {
     const fetchThemeDetails = async () => {
       try {
         setLoading(true);
-        // Search for the theme by name
-        const themeSearchResponse = await axios.get<Theme[]>('http://localhost:8000/themes?name=ayuda');
-        const themes = themeSearchResponse.data;
+        // Fetch the theme details by name "ayuda"
+        const themeSearchResponse = await axios.get<Theme[]>(`http://localhost:8000/themes?name=${encodeURIComponent('ayuda')}`);
+        const themeData = themeSearchResponse.data.find(t => t.name === 'ayuda');
 
-        const searchedTheme = themes.find(theme => theme.name === 'ayuda'); // Replace 'ayuda' with the actual theme name
-
-        if (!searchedTheme) {
+        if (!themeData) {
           setError('Theme not found');
           setLoading(false);
           return;
         }
 
-        setTheme(searchedTheme);
+        setTheme(themeData);
 
         // Fetch the related posts and authors for the theme
-        const postsResponse = await axios.get<Post[]>(`http://localhost:8000/posts?theme=${searchedTheme.id}`);
-        setPosts(postsResponse.data);
+        const relatedDataResponse = await axios.get<{ theme: Theme }>(`http://localhost:8000/themes/${themeData.id}`);
+        const fetchedPosts = relatedDataResponse.data.theme.posts;
+        const fetchedAuthors = relatedDataResponse.data.theme.authors;
 
-        const authorsResponse = await axios.get<Author[]>(`http://localhost:8000/authors?theme=${searchedTheme.id}`);
-        setAuthors(authorsResponse.data);
+        // Check if posts and authors are defined before setting the state
+        if (fetchedPosts && fetchedAuthors) {
+          setPosts(fetchedPosts);
+          setAuthors(fetchedAuthors);
+        } else {
+          setError('Posts or authors data is undefined');
+        }
       } catch (error) {
         setError('Error fetching theme details');
         console.error('Error fetching theme details:', error);
@@ -55,17 +60,17 @@ const Help: React.FC = () => {
   }
 
   if (!theme) {
-    return <div>No se ha encontrado esta Página</div>; // Handle case where theme is not found
+    return <div>No se ha encontrado este Tema</div>; // Handle case where theme is not found
   }
 
   return (
     <div className='content'>
-      <h2>¿Quieres ayudar?</h2>
+      <h2>Aporta tu granito de arena</h2>
       <h3>Posts:</h3>
       <ul>
         {posts.map(post => (
           <li key={post.id}>
-            {post.title}
+            <Link to={`/posts/${post.id}`}>{post.title}</Link>
           </li>
         ))}
       </ul>
@@ -73,11 +78,11 @@ const Help: React.FC = () => {
       <ul>
         {authors.map(author => (
           <li key={author.id}>
-            {author.name}
+            <Link to={`/autor/${author.id}`}>{author.name}</Link>
           </li>
         ))}
       </ul>
-      <h3>Encuentra un nombre para tu mascota adoptada</h3>
+      <h3>Elige un nombre para tu acompañante</h3>
     </div>
   );
 };

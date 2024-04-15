@@ -18,6 +18,8 @@ import theme from "./theme";
 import Podcasts from "./pages/Podcasts";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
+import Posts from "./pages/Posts";
+import SinglePost from './pages/SinglePost';
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
           <Route path="/inicio" element={<Home />} />
           <Route path="/autores" element={<Authors />} />
           <Route path="/autor/:authorId" element={<Autor />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
           <Route path="/libros" element={<Books />} />
           <Route path="/instagram" element={<Instagram />} />
           <Route path="/podcasts" element={<Podcasts />} />
