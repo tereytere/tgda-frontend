@@ -31,15 +31,13 @@ const Books: React.FC = () => {
             <p>{book.body}</p>
             {book.image && <img src={book.image} alt={book.title} />}
             {book.url && <p><a href={book.url} target="_blank" rel="noopener noreferrer">{book.url}</a></p>}
-            {typeof book.author === 'object' ? (
+            {typeof book.author === 'object' && (
               <p>
                 Autor: <Link to={`/autor/${(book.author as Author).id}`}>
                   {(book.author as Author).name}
                 </Link>
               </p>
-            ) : (
-              <p>Autor: {book.author}</p>
-            )}
+            ) }
             {book.themes && <Themes themes={book.themes} />}
           </li>
         ))}

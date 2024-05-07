@@ -18,9 +18,10 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps<Theme>> = ({
   setEditThemeName,
   setThemes,
 }) => {
+  //TODO: hacer objeto
   const [editTheme, setEditTheme] = useState<Theme | null>(null);
   const [editedThemeName, setEditedThemeName] = useState<string>('');
-
+//TODO: simplificar edits
   const handleEditClick = (theme: Theme) => {
     setEditTheme(theme);
     setEditedThemeName(theme.name);
