@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Map from "../components/Map";
 
 const Home: React.FC = () => {
 
@@ -15,6 +16,7 @@ const Home: React.FC = () => {
         <br></br>
         <Link to={`/pokemon/`}>Pokemon</Link>
       </h2>
+      <Map />
     </div>
   );
 };
