@@ -30,12 +30,24 @@ const markerDataList: MarkerData[] = [
     markerType: 'restaurant',
   },
   {
+    position: [40.42338436882636, -3.6985385146362644],
+    popupContent: (
+      <div>
+        <p>Mad Mad Vegan</p>
+        <p>C/ Pelayo 19</p>
+        <p>28004 Madrid</p>
+        <a href="http://www.madmadvegan.com/">Visita su web</a>
+      </div>
+    ),
+    markerType: 'restaurant',
+  },
+  {
     position: [41.68403284260121, -0.8689172281114376],
     popupContent: (
       <div>
         <p>A Flama Madalena</p>
-        <p>Calle Mayor, 53, LOCAL IZDA</p>
-        <p>50001 Zaragoz</p>
+        <p>C/ Mayor, 53, LOCAL IZDA</p>
+        <p>50001 Zaragoza</p>
         <a href="https://aflamavegana.com/">Visita su web</a>
       </div>
     ),
@@ -46,8 +58,8 @@ const markerDataList: MarkerData[] = [
     popupContent: (
       <div>
         <p>Restaurante Baobab</p>
-        <p>C. del Arzobispo Apaolaza, 10</p>
-        <p>50009 Zaragoz</p>
+        <p>C/ Arzobispo Apaolaza, 10</p>
+        <p>50009 Zaragoza</p>
         <a href="http://www.restaurantebaobab.com/">Visita su web</a>
       </div>
     ),
@@ -61,6 +73,18 @@ const markerDataList: MarkerData[] = [
         <p>C/ Ave María 34</p>
         <p>28012 Madrid</p>
         <a href="https://planetavegano.com">Visita su web</a>
+      </div>
+    ),
+    markerType: 'store',
+  },
+  {
+    position: [40.425774986701555, -3.7029029183128417],
+    popupContent: (
+      <div>
+        <p>Veggie Room</p>
+        <p>C/ San Vicente Ferrer 19</p>
+        <p>28004 Madrid</p>
+        <a href="http://www.veggieroom.es/">Visita su web</a>
       </div>
     ),
     markerType: 'store',
@@ -93,7 +117,7 @@ const markerDataList: MarkerData[] = [
     popupContent: (
       <div>
         <p>Asociación Protectora De Animales Zarpas Y Colmillos</p>
-        <p>C. Batalla de Lepanto, 12</p>
+        <p>C/ Batalla de Lepanto, 12</p>
         <p>28912 Leganés, Madrid</p>
         <a href="http://zarpasycolmillos.es/">Visita su web</a>
       </div>
@@ -117,7 +141,7 @@ const markerDataList: MarkerData[] = [
     popupContent: (
       <div>
         <p>Zarpa Protección Animal</p>
-        <p>C. de Cristóbal Colón, 6, 8</p>
+        <p>C/ Cristóbal Colón, 6, 8</p>
         <p>50007 Zaragoza</p>
         <a href="http://zarpa.org/">Visita su web</a>
       </div>

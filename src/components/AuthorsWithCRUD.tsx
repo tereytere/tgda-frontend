@@ -75,9 +75,9 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
   };
 
   return (
-    <div className="authors-container">
+    <div className='authors-container'>
       {authors.map(author => (
-        <div key={author.id} className="author-item">
+        <div key={author.id} className='author-item'>
           {editAuthor?.id === author.id ? (
             <div>
               <input

@@ -28,7 +28,7 @@ const Posts: React.FC = () => {
   return (
     <div className='content'>
       <h2>Posts</h2>
-      <ul>
+      <ul className='list'>
         {posts.map(post => (
           <li key={post.id}>
             <Link to={`/posts/${post.id}`} onClick={() => handlePostClick(post)}>{post.title}</Link>

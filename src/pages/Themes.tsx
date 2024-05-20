@@ -95,7 +95,7 @@ const Themes: React.FC = () => {
           onChange={(e) => setNewThemeName(e.target.value)}
           placeholder="Enter new theme name"
         />
-        <button onClick={handleAddTheme} className="add-entry-button">Añadir Tema</button>
+        <button onClick={handleAddTheme} className='add-entry-button'>Añadir Tema</button>
       </div>
     </div>
   );

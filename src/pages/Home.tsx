@@ -4,7 +4,7 @@ import Map from "../components/Map";
 
 const Home: React.FC = () => {
 	return (
-		<div className="content">
+		<div className='content'>
 			<h1>Tu Granito de Arena</h1>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum

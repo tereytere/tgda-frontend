@@ -58,10 +58,10 @@ const Autor: React.FC = () => {
 	}
 
 	return (
-		<div className="content">
+		<div className='content'>
 			<h2>{author.name}</h2>
 			{author.image && <img src={author.image} alt={author.name} />}
-			<div className="socialMedia">
+			<div className='socialMedia'>
 				<p>Encuéntrale también en:</p>
 				{author.instagram && (
 					<a href={author.instagram} target="_blank" rel="noopener noreferrer">

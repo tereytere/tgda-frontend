@@ -54,7 +54,7 @@ const SearchResultsPage: React.FC = () => {
   return (
     <div className='content'>
       <h2>Resultados</h2>
-      <div className="search-results">
+      <div className='search-results'>
         {authorResults.length > 0 && (
           <div>
             <h3>Autores</h3>

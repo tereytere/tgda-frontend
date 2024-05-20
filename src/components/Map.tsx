@@ -32,7 +32,7 @@ export default function Map() {
 
   return (
     <div ref={mapContainerRef}>
-      <MapContainer center={defaultCenter} zoom={13} scrollWheelZoom={false} style={{ height: '100vh' }}>
+      <MapContainer center={defaultCenter} zoom={13} scrollWheelZoom={false} style={{ height: '80vh' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -63,16 +63,16 @@ export default function Map() {
             </Marker>
           );
         })}
-        <div className="legend">
-          <div className="legend-item" onClick={() => handleLegendItemClick('store')}>
+        <div className='legend'>
+          <div className='legend-item' onClick={() => handleLegendItemClick('store')}>
             <StoreIcon sx={{ color: 'red', fontSize: 20 }} />
             <span>Tienda</span>
           </div>
-          <div className="legend-item" onClick={() => handleLegendItemClick('restaurant')}>
+          <div className='legend-item' onClick={() => handleLegendItemClick('restaurant')}>
             <RestaurantIcon sx={{ color: 'green', fontSize: 20 }} />
             <span>Restaurante</span>
           </div>
-          <div className="legend-item" onClick={() => handleLegendItemClick('organization')}>
+          <div className='legend-item' onClick={() => handleLegendItemClick('organization')}>
             <BusinessIcon sx={{ color: 'blue', fontSize: 20 }} />
             <span>Organización</span>
           </div>

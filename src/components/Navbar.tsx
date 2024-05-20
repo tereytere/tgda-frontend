@@ -34,45 +34,45 @@ export default function Navbar() {
 
 
   return (
-    <nav className="navbar">
-      <div className="container">
-        <Link to="/" className="navbar-brand">
-          <img src="/favicon.ico" alt="Logo" width="40" height="34" className="d-inline-block align-text-top" />
+    <nav className='navbar'>
+      <div className='container'>
+        <Link to="/" className='navbar-brand'>
+          <img src="/favicon.ico" alt="Logo" width="40" height="34" className='d-inline-block align-text-top' />
           TuGranitoDeArena
         </Link>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link to="/libros" className="nav-link">Libros</Link>
+        <ul className='navbar-nav'>
+          <li className='nav-item'>
+            <Link to="/libros" className='nav-link'>Libros</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/peliculas" className="nav-link">Películas</Link>
+          <li className='nav-item'>
+            <Link to="/peliculas" className='nav-link'>Películas</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/podcasts" className="nav-link">Podcasts</Link>
+          <li className='nav-item'>
+            <Link to="/podcasts" className='nav-link'>Podcasts</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/instagram" className="nav-link">Instagram</Link>
+          <li className='nav-item'>
+            <Link to="/instagram" className='nav-link'>Instagram</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/paginasweb" className="nav-link">Páginas Web</Link>
+          <li className='nav-item'>
+            <Link to="/paginasweb" className='nav-link'>Páginas Web</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/youtube" className="nav-link">YouTube</Link>
+          <li className='nav-item'>
+            <Link to="/youtube" className='nav-link'>YouTube</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/ayuda" className="nav-link">Ayuda</Link>
+          <li className='nav-item'>
+            <Link to="/ayuda" className='nav-link'>Ayuda</Link>
           </li>
         </ul>
-        <form className="search-form" onSubmit={handleSearch}>
+        <form className='search-form' onSubmit={handleSearch}>
           <input
-            className="search-input"
+            className='search-input'
             type="search"
             placeholder="Buscar"
             aria-label="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="search-button" type="submit">Buscar</button>
+          <button className='search-button' type="submit">Buscar</button>
         </form>
         {error && error.message && <div>Error: {error.message}</div>}
       </div>

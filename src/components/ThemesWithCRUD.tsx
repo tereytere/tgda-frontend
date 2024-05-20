@@ -55,9 +55,9 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps<Theme>> = ({
   };
 
   return (
-    <div className="themes-container">
+    <div className='themes-container'>
       {themes.map(theme => (
-        <div key={theme.id} className="theme-item">
+        <div key={theme.id} className='theme-item'>
           {editTheme?.id === theme.id ? (
             <div>
               <input

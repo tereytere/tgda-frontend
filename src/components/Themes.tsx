@@ -9,12 +9,11 @@ interface ThemesProps {
 
 const Themes: React.FC<ThemesProps> = ({ themes }) => {
   return (
-    <div className="themes-container">
-      <h4>Temas:</h4>
-      <div className="theme-buttons">
+    <div className='themes-container'>
+      <div className='theme-buttons'>
         {themes.map(theme => (
           <Link key={theme.id} to={`/temas/${theme.id}`}>
-            <button className="theme-button">{theme.name}</button>
+            <button className='theme-button'>{theme.name}</button>
           </Link>
         ))}
       </div>
