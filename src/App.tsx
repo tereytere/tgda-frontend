@@ -20,6 +20,7 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
 import Posts from "./pages/Posts";
 import SinglePost from './pages/SinglePost';
+import Login from "./components/Login";
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/ayuda" element={<Help />} />
           <Route path="/resultados/:query" element={<SearchResultsPage />} />
           <Route path="/pokemon" element={<Pokemon />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/*" element={<Error />} />
         </Routes>
         <Footer />

@@ -1,10 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Map from "../components/Map";
 
 const Home: React.FC = () => {
+	const navigate = useNavigate();
+
+	const handleLoginRedirect = () => {
+		// Redirect to login page
+		navigate("/login");
+	};
+
 	return (
-		<div className='content'>
+		<div className="content">
 			<h1>Tu Granito de Arena</h1>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum
@@ -22,9 +29,13 @@ const Home: React.FC = () => {
 				<br></br>
 				<Link to={`/posts/`}>Posts</Link>
 				<br></br>
-				<Link to={`/pokemon/`}>Pokemon</Link>
 			</h2>
 			<Map />
+			<div className="login-button-container">
+				<button className="login-button" onClick={handleLoginRedirect}>
+					Login
+				</button>
+			</div>
 		</div>
 	);
 };
