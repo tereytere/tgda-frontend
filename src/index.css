@@ -1,3 +1,4 @@
+/* Base styles for all screen sizes */
 body {
   display: flex;
   flex-direction: column;
@@ -31,6 +32,7 @@ body {
   justify-content: space-evenly;
   white-space: nowrap;
   z-index: 1000;
+  font-weight: bold;
 }
 
 .container {
@@ -92,7 +94,7 @@ body {
 /* Content styles */
 .content {
   flex-grow: 1;
-  padding: 0 2%;
+  padding: 2%;
   background-color: var(--main-background-color);
   color: var(--text-color);
   margin-top: 5%;
@@ -104,6 +106,87 @@ body {
   height: 80vh;
   width: 100wh;
   z-index: 0;
+}
+
+/* Login styles */
+.login-button-container {
+  position: static;
+}
+
+.login-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--nav-background-color);
+  color: var(--main-background-color);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  padding: 0.4rem;
+}
+
+.login-button:hover {
+  background-color: var(--border-color);
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-box {
+  width: 30vw;
+  background-color: var(--nav-background-color);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.login-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: var(--main-background-color);
+  margin-bottom: 2rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputs-bar {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 0.75rem;
+  background-color: var(--main-background-color);
+  color: var(--nav-background-color);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: var(--nav-background-color);
+  color: var(--main-background-color);
+  border-color: var(--main-background-color);
 }
 
 /* Legend styles */
@@ -237,4 +320,97 @@ body {
   position: fixed;
   left: 0;
   bottom: 0;
+}
+
+/* Media queries for phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    height: 10%;
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding-top: 12%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 20%;
+  }
+
+  .login-button-container {
+    position:relative;
+    right: 40%;
+  }
+
+  .login-box {
+    width: 70vw;
+  }
+
+  .book-item .image-container {
+    flex: 0 0 250px;
+  }
+
+  .youtube-item .video-container {
+    flex: 0 0 300px;
+    height: 180px;
+  }
+
+  .footer {
+    font-size: 0.9rem;
+  }
+}
+
+/* Media queries for tablets (min-width: 768px) */
+@media (min-width: 768px) {
+  .navbar {
+    height: 8%;
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 3%;
+  }
+
+  .login-box {
+    width: 40vw;
+  }
+
+  .book-item .image-container {
+    flex: 0 0 400px;
+  }
+
+  .youtube-item .video-container {
+    flex: 0 0 500px;
+    height: 250px;
+  }
+
+  .footer {
+    font-size: 1rem;
+  }
+}
+
+/* Media queries for desktops (min-width: 1920px) */
+@media (min-width: 1920px) {
+  .navbar {
+    height: 8%;
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 3%;
+  }
+
+  .book-item .image-container {
+    flex: 0 0 300px;
+    margin-right: 20px;
+  }
+
+  .youtube-item .video-container {
+    flex: 0 0 500px;
+    height: 281px;
+    margin-right: 20px;
+  }
+
+  .footer {
+    font-size: 1rem;
+  }
 }
