@@ -1,61 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { Author } from "../interfaces/author.interface";
-import { Post } from "../interfaces/post.interface";
-import {
-	Instagram,
-	Podcasts,
-	Link as LinkIcon,
-	YouTube,
-} from "@mui/icons-material";
+import { Instagram, Podcasts, Link as LinkIcon, YouTube } from "@mui/icons-material";
+import { useAutorData } from "../hooks/useAutorData";
 
 const Autor: React.FC = () => {
-	const { authorId } = useParams<{ authorId: string }>();
-	const [author, setAuthor] = useState<Author | null>(null);
-	const [authorPosts, setAuthorPosts] = useState<Post[]>([]);
+  const { authorId } = useParams<{ authorId?: string }>();
+  const { author, authorPosts } = useAutorData(authorId || "");
 
-  //TODO: pasar el useEffect a Hooks
-	useEffect(() => {
-		const fetchAuthor = async () => {
-			try {
-				const response = await axios.get<Author>(
-					`http://localhost:8000/authors`,
-					{
-						params: {
-							authorId: authorId,
-						},
-					}
-				);
-				setAuthor(response.data);
-			} catch (error) {
-				console.error("Error fetching author:", error);
-			}
-		};
-
-		const fetchAuthorPosts = async () => {
-			try {
-				const response = await axios.get<Post[]>(
-					`http://localhost:8000/posts`,
-					{
-						params: {
-							author_id: authorId,
-						},
-					}
-				);
-				setAuthorPosts(response.data);
-			} catch (error) {
-				console.error("Error fetching author posts:", error);
-			}
-		};
-
-		fetchAuthor();
-		fetchAuthorPosts();
-	}, [authorId]);
-
-	if (!author) {
-		return <div>Cargando...</div>;
-	}
+  if (!author) {
+    return <div>Cargando...</div>;
+  }
 
 	return (
 		<div className='content'>

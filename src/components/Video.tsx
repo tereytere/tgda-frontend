@@ -1,4 +1,5 @@
 import React from "react";
+import { VideoContainer } from "../styledComponents/VideoStyles";
 
 interface Props {
   url: string | null | undefined;
@@ -6,15 +7,12 @@ interface Props {
 }
 
 const Video: React.FC<Props> = ({ url, title }) => {
-  if (!url) {
-    return null;
-  }
-  if (!title) {
+  if (!url || !title) {
     return null;
   }
 
   return (
-    <div className='video-container'>
+    <VideoContainer>
       <iframe
         src={url}
         title={title}
@@ -22,7 +20,7 @@ const Video: React.FC<Props> = ({ url, title }) => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
-    </div>
+    </VideoContainer>
   );
 };
 

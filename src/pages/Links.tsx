@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Post } from '../interfaces/post.interface';
-import { Author } from '../interfaces/author.interface';
-import Instagram from './Instagram';
-import Webpages from './Webpages';
-import Youtube from './Youtube';
 
 const Links: React.FC = () => {
   return (
-    <>
-    
-    </>
+    <div className="content">
+      <h2>
+        <Link to={`/instagram/`}>Instagram</Link>
+        <br />
+        <Link to={`/paginasweb/`}>Páginas Web</Link>
+        <br />
+        <Link to={`/youtube/`}>YouTube</Link>
+      </h2>
+    </div>
   );
 };
 
