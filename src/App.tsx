@@ -19,38 +19,40 @@ import Podcasts from "./pages/Podcasts";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
 import Posts from "./pages/Posts";
-import SinglePost from './pages/SinglePost';
+import SinglePost from "./pages/SinglePost";
 import Login from "./components/Login";
+import Links from "./pages/Links";
 
 export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/inicio" element={<Home />} />
-          <Route path="/autores" element={<Authors />} />
-          <Route path="/autor/:authorId" element={<Autor />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<SinglePost />} />
-          <Route path="/libros" element={<Books />} />
-          <Route path="/instagram" element={<Instagram />} />
-          <Route path="/podcasts" element={<Podcasts />} />
-          <Route path="/peliculas" element={<Movies />} />
-          <Route path="/temas" element={<Themes />} />
-          <Route path="/temas/:id" element={<Tema />} />
-          <Route path="/paginasweb" element={<Webpages />} />
-          <Route path="/youtube" element={<Youtube />} />
-          <Route path="/ayuda" element={<Help />} />
-          <Route path="/resultados/:query" element={<SearchResultsPage />} />
-          <Route path="/pokemon" element={<Pokemon />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<Error />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<BrowserRouter>
+				<Navbar />
+				<Routes>
+					<Route index element={<Home />} />
+					<Route path="/inicio" element={<Home />} />
+					<Route path="/autores" element={<Authors />} />
+					<Route path="/autor/:authorId" element={<Autor />} />
+					<Route path="/posts" element={<Posts />} />
+					<Route path="/posts/:id" element={<SinglePost />} />
+					<Route path="/libros" element={<Books />} />
+					<Route path="/instagram" element={<Instagram />} />
+					<Route path="/podcasts" element={<Podcasts />} />
+					<Route path="/peliculas" element={<Movies />} />
+					<Route path="/temas" element={<Themes />} />
+					<Route path="/temas/:id" element={<Tema />} />
+					<Route path="/paginasweb" element={<Webpages />} />
+					<Route path="/youtube" element={<Youtube />} />
+					<Route path="/ayuda" element={<Help />} />
+					<Route path="/resultados/:query" element={<SearchResultsPage />} />
+					<Route path="/pokemon" element={<Pokemon />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/enlaces" element={<Links />} />
+					<Route path="/*" element={<Error />} />
+				</Routes>
+				<Footer />
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 }
