@@ -10,6 +10,7 @@ import {
 	ListItem,
 	Linked,
 	AuthorLink,
+	ReviewContainer,
 } from "../styledComponents/ContentStyles";
 import { BookItem } from "../styledComponents/PostStyles";
 import GoodreadsIcon from "../components/GoodreadsIcon";
@@ -40,7 +41,7 @@ const Books: React.FC = () => {
 						<BookItem>
 							<Linked>
 								<h3 className="linked">
-									<Link to={`/post/${book.id}`}>{book.title}</Link>
+									<Link to={`/posts/${book.id}`}>{book.title}</Link>
 								</h3>
 							</Linked>
 							<div className="book-details">
@@ -60,16 +61,10 @@ const Books: React.FC = () => {
 									</AuthorLink>
 									{book.themes && <Themes themes={book.themes} />}
 									{book.url && (
-										<p>
-											Reseñas:
-											<a
-												href={book.url}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<GoodreadsIcon url={book.url} />
-											</a>
-										</p>
+										<ReviewContainer>
+											<span>Reseñas:</span>
+											<GoodreadsIcon url={book.url} />
+										</ReviewContainer>
 									)}
 								</div>
 							</div>

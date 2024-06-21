@@ -3,95 +3,234 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
+import { Theme } from "../interfaces/theme.interface";
 import Themes from "../components/Themes";
 import Video from "../components/Video";
-import Podcast from "../components/Podcast";
+import { Movie as MovieIcon } from "@mui/icons-material";
+import { InstagramEmbed } from "react-social-media-embed";
+import { TikTokEmbed } from "react-social-media-embed";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	ResultsTitle,
+	ReviewContainer,
+} from "../styledComponents/ContentStyles";
+import {
+	VideoTextContainer,
+	VideoContainer,
+	ContentContainer,
+} from "../styledComponents/VideoStyles";
+import GoodreadsIcon from "../components/GoodreadsIcon";
+import {
+	YouTubeItem,
+	BookItem,
+	StyledImage,
+	StyledIcon,
+	MultimediaTextContainer,
+	MultimediaContainer,
+	MultimediaContentContainer,
+} from "../styledComponents/PostStyles";
 
 const SinglePost: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<Post | null>(null);
-  const [author, setAuthor] = useState<Author | null>(null);
-  const [themes, setThemes] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+	const { id } = useParams<{ id: string }>();
+	const [post, setPost] = useState<Post | null>(null);
+	const [author, setAuthor] = useState<Author | null>(null);
+	const [themes, setThemes] = useState<Theme[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchPostDetails = async () => {
-      try {
-        setLoading(true);
-        const { data: postData } = await axios.get<{ post: Post }>(
-          `http://localhost:8000/posts/${id}`
-        );
+	useEffect(() => {
+		const fetchPostDetails = async () => {
+			try {
+				setLoading(true);
+				const { data: postData } = await axios.get<{ post: Post }>(
+					`http://localhost:8000/posts/${id}`
+				);
 
-        const fetchedPost = postData.post;
-        setPost(fetchedPost);
+				const fetchedPost = postData.post;
+				setPost(fetchedPost);
 
-        if (fetchedPost.author && typeof fetchedPost.author === "object") {
-          setAuthor(fetchedPost.author);
-        } else {
-          setAuthor(null); // Set author to null if the author data is invalid
-          setError("Author data is invalid");
-        }
+				if (fetchedPost.author && typeof fetchedPost.author === "object") {
+					setAuthor(fetchedPost.author);
+				} else {
+					setAuthor(null); // Set author to null if the author data is invalid
+					setError("Author data is invalid");
+				}
 
-        const fetchedThemes =
-          fetchedPost.themes?.map((theme: { name: string }) => theme.name) ||
-          [];
-        setThemes(fetchedThemes);
-      } catch (error) {
-        setError("Error fetching post details");
-        console.error("Error fetching post details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+				const fetchedThemes: Theme[] =
+					fetchedPost.themes?.map((theme: { id: string; name: string }) => ({
+						id: theme.id,
+						name: theme.name,
+					})) || [];
+				setThemes(fetchedThemes);
+			} catch (error) {
+				setError("Error fetching post details");
+				console.error("Error fetching post details:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    fetchPostDetails();
-  }, [id]);
+		fetchPostDetails();
+	}, [id]);
 
-  useEffect(() => {}, [post, author, themes]);
+	useEffect(() => {}, [post, author, themes]);
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
+	if (loading) {
+		return <div>Cargando...</div>;
+	}
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+	if (error) {
+		return <div>Error: {error}</div>;
+	}
 
-  if (!post) {
-    return <div>Post no encontrado</div>;
-  }
+	if (!post) {
+		return <div>Post no encontrado</div>;
+	}
 
-  const isVideo = post.type === "youtube";
-  const isPodcast = post.type === "spotify";
-
-  return (
-    <div className='content'>
-      <h2>{post.title}</h2>
-      <p>{post.body}</p>
-      {isVideo && <Video url={post.url} title={post.title} />}
-      {isPodcast && <Podcast url={post.url} />}
-      {!isVideo && !isPodcast && post.image && (
-        <img src={post.image} alt={post.title} />
-      )}
-      {post.url && !isVideo && !isPodcast && (
-        <p>
-          <a href={post.url} target="_blank" rel="noopener noreferrer">
-            {post.url}
-          </a>
-        </p>
-      )}
-      {typeof post.author === "object" && (
-        <h4>
-          <Link to={`/autor/${(post.author as Author).id}`}>
-            {(post.author as Author).name}
-          </Link>
-        </h4>
-      )}
-      {post.themes && <Themes themes={post.themes} />}
-      <p>{post.language}</p>
-    </div>
-  );
+	return (
+		<BodyContentContainer>
+			<ResultsTitle>
+				<h2>{post.title}</h2>
+			</ResultsTitle>
+			<List>
+				{post.type === "youtube" && (
+					<ListItem>
+						<YouTubeItem>
+							<Linked>
+								<h3 className="linked">
+									<Link to={`/posts/${post.id}`}>{post.title}</Link>
+								</h3>
+							</Linked>
+							<VideoTextContainer>
+								<VideoContainer>
+									<Video url={post.url} title={post.title} />
+								</VideoContainer>
+								<ContentContainer>
+									<div className="content-container">
+										<p>{post.body}</p>
+										{themes && <Themes themes={themes} />}
+									</div>
+								</ContentContainer>
+							</VideoTextContainer>
+						</YouTubeItem>
+					</ListItem>
+				)}
+				{post.type === "libro" && (
+					<ListItem>
+						<BookItem>
+							<Linked>
+								<h3 className="linked">
+									<Link to={`/posts/${post.id}`}>{post.title}</Link>
+								</h3>
+							</Linked>
+							<div className="book-details">
+								<div className="image-container">
+									{post.image && <img src={post.image} alt={post.title} />}
+								</div>
+								<div className="text-container">
+									<p>{post.body}</p>
+									{themes && <Themes themes={themes} />}
+									{post.url && (
+										<ReviewContainer>
+											<span>Reseñas:</span>
+											<GoodreadsIcon url={post.url} />
+										</ReviewContainer>
+									)}
+								</div>
+							</div>
+						</BookItem>
+					</ListItem>
+				)}
+				{post.type === "película" && (
+					<ListItem>
+						<Linked>
+							<h3 className="linked">
+								<Link to={`/posts/${post.id}`}>{post.title}</Link>
+							</h3>
+						</Linked>
+						<VideoTextContainer>
+							<VideoContainer>
+								<Video
+									url={post.image ?? undefined}
+									title={post.title ?? undefined}
+								/>
+							</VideoContainer>
+							<ContentContainer>
+								<div className="content-container">
+									<p>{post.body}</p>
+									{post.url && (
+										<p>
+											Mírala entera aquí:
+											<a
+												href={post.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}
+											>
+												<StyledIcon>
+													<MovieIcon fontSize="large" />
+												</StyledIcon>
+											</a>
+										</p>
+									)}
+									{themes && <Themes themes={themes} />}
+								</div>
+							</ContentContainer>
+						</VideoTextContainer>
+					</ListItem>
+				)}
+				{post.type === "instagram" && (
+					<ListItem>
+						<Linked>
+							<h3 className="linked">
+								<Link to={`/posts/${post.id}`}>{post.title}</Link>
+							</h3>
+						</Linked>
+						<MultimediaTextContainer>
+							<MultimediaContainer>
+								{post.image && (
+									<div style={{ display: "flex", justifyContent: "left" }}>
+										<InstagramEmbed url={post.image} width={328} />
+									</div>
+								)}
+								{post.url && (
+									<div style={{ display: "flex", justifyContent: "left" }}>
+										<TikTokEmbed url={post.url} width={325} />
+									</div>
+								)}
+							</MultimediaContainer>
+							<MultimediaContentContainer>
+								<p>{post.body}</p>
+								{post.themes && <Themes themes={post.themes} />}
+							</MultimediaContentContainer>
+						</MultimediaTextContainer>
+					</ListItem>
+				)}
+				{post.type === "webpage" && (
+					<ListItem>
+						<Linked>
+							<h3 className="linked">
+								<Link to={`/posts/${post.id}`}>{post.title}</Link>
+							</h3>
+						</Linked>
+						<p>{post.body}</p>
+						{post.image && <StyledImage src={post.image} alt={post.title} />}
+						{post.url && (
+							<p>
+								<a href={post.url} target="_blank" rel="noopener noreferrer">
+									{post.url}
+								</a>
+							</p>
+						)}
+						{themes && <Themes themes={themes} />}
+					</ListItem>
+				)}
+			</List>
+		</BodyContentContainer>
+	);
 };
 
 export default SinglePost;

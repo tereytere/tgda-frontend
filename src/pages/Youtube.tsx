@@ -8,7 +8,9 @@ import Video from '../components/Video';
 import { 
   BodyContentContainer, 
   List, 
-  ListItem 
+  ListItem,
+  Linked,
+  AuthorLink
 } from "../styledComponents/ContentStyles"; 
 import { 
   VideoTextContainer, 
@@ -39,7 +41,11 @@ const Youtube: React.FC = () => {
         {youtubes.map((youtube) => (
           <ListItem key={youtube.id}>
             <YouTubeItem>
-              <h3>{youtube.title}</h3>
+            <Linked>
+								<h3 className="linked">
+									<Link to={`/posts/${youtube.id}`}>{youtube.title}</Link>
+								</h3>
+							</Linked>
               <VideoTextContainer>
                 <VideoContainer> 
                   <Video
@@ -50,13 +56,15 @@ const Youtube: React.FC = () => {
                 <ContentContainer> 
                   <div className="content-container">
                     <p>{youtube.body}</p>
-                    {typeof youtube.author === 'object' && (
-                      <h4>
-                        <Link to={`/autor/${(youtube.author as Author).id}`}>
-                          {(youtube.author as Author).name}
-                        </Link>
-                      </h4>
-                    )}
+                    <AuthorLink>
+										{typeof youtube.author === "object" && (
+											<h4 className="author-link">
+												<Link to={`/autor/${(youtube.author as Author).id}`}>
+													{(youtube.author as Author).name}
+												</Link>
+											</h4>
+										)}
+									</AuthorLink>
                     {youtube.themes && <Themes themes={youtube.themes} />}
                   </div>
                 </ContentContainer>

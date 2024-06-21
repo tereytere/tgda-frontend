@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 import { Theme } from "../interfaces/theme.interface";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
-import Form from "../components/Form"
+import Form from "../components/Form";
+import {
+	BodyContentContainer,
+	Title,
+	ResultsTitle,
+	List,
+	ListItem,
+	Linked,
+} from "../styledComponents/ContentStyles";
 
 const Help: React.FC = () => {
 	const [theme, setTheme] = useState<Theme | null>(null);
@@ -71,30 +79,46 @@ const Help: React.FC = () => {
 	}
 
 	return (
-		<div className="content">
-			<h2>Aporta tu granito de arena</h2>
-			<h3>Posts:</h3>
-			<ul>
+		<BodyContentContainer>
+			<Title>
+				<h2>Aporta tu granito de arena</h2>
+			</Title>
+			<ResultsTitle>
+				<h3>Posts</h3>
+			</ResultsTitle>
+			<List>
 				{posts.map((post) => (
-					<li key={post.id}>
-						<Link to={`/posts/${post.id}`}>{post.title}</Link>
-					</li>
+					<ListItem key={post.id}>
+						<Linked>
+							<Link to={`/posts/${post.id}`}>{post.title}</Link>
+						</Linked>
+					</ListItem>
 				))}
-			</ul>
-			<h3>Autores:</h3>
-			<ul>
+			</List>
+			<ResultsTitle>
+				<h3>Autores</h3>
+			</ResultsTitle>
+			<List>
 				{authors.map((author) => (
-					<li key={author.id}>
-						<Link to={`/autor/${author.id}`}>{author.name}</Link>
-					</li>
+					<ListItem key={author.id}>
+						<Linked>
+							<Link to={`/autor/${author.id}`}>{author.name}</Link>
+						</Linked>
+					</ListItem>
 				))}
-			</ul>
-			<h3>Elige un nombre para tu acompañante</h3>
+			</List>
+			<ResultsTitle>
+				<h3>Elige un nombre para tu acompañante</h3>
+			</ResultsTitle>
 			<Link to={`/pokemon/`}>Pokemon</Link>
 			<p>10277</p>
-			<h3>Únete</h3>
-			<div className="form-div"><Form /></div>
-		</div>
+			<ResultsTitle>
+				<h3>Únete</h3>
+			</ResultsTitle>
+			<div className="form-div">
+				<Form />
+			</div>
+		</BodyContentContainer>
 	);
 };
 

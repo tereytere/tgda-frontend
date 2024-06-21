@@ -1,6 +1,5 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Map from "../components/Map";
 import {
 	BodyContentContainer,
@@ -8,24 +7,15 @@ import {
 	Title,
 	Linked,
 } from "../styledComponents/ContentStyles";
-import {
-	LoginButton,
-	LoginButtonContainer,
-} from "../styledComponents/LoginStyles";
 
 const Home: React.FC = () => {
-	const { isAuthenticated, handleLogout } = useAuth();
-	const navigate = useNavigate();
-
-	const handleLoginRedirect = () => {
-		// Redirect to login page
-		navigate("/login");
-	};
 
 	return (
 		<BodyContentContainer>
 			<TitleContainer>
-				<Title>Tu Granito de Arena</Title>
+				<Title>
+					<h1>Tu Granito de Arena</h1>
+				</Title>
 			</TitleContainer>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum
@@ -47,13 +37,6 @@ const Home: React.FC = () => {
 				</h2>
 			</Linked>
 			<Map />
-			<LoginButtonContainer>
-				{isAuthenticated ? (
-					<LoginButton onClick={handleLogout}>Logout</LoginButton>
-				) : (
-					<LoginButton onClick={handleLoginRedirect}>Login</LoginButton>
-				)}
-			</LoginButtonContainer>
 		</BodyContentContainer>
 	);
 };
