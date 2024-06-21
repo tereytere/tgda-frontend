@@ -1,20 +1,20 @@
 import styled from "styled-components";
 
 export const LoginButtonContainer = styled.div`
-	position: static;
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
+	flex-grow: 1;
 
 	.login-button {
-		background-color: var(--nav-background-color);
-		color: var(--main-background-color);
-		border: none;
+		background-color: var(--main-background-color);
+		color: var(--nav-background-color);
+		border: 1px solid var(--border-color);
 		border-radius: 3px;
 		cursor: pointer;
 		transition: background-color 0.3s ease;
 		font-weight: bold;
 		padding: 0.4rem;
-		position: absolute;
 		top: 10px;
 		right: 10px;
 
@@ -29,12 +29,11 @@ export const LoginButtonContainer = styled.div`
 `;
 
 export const LoginButton = styled.button`
-	position: absolute;
 	top: 10px;
 	right: 10px;
-	background-color: var(--nav-background-color);
-	color: var(--main-background-color);
-	border: none;
+	background-color: var(--main-background-color);
+	color: var(--nav-background-color);
+	border: 1px solid var(--border-color);
 	border-radius: 3px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
@@ -43,6 +42,7 @@ export const LoginButton = styled.button`
 
 	&:hover {
 		background-color: var(--border-color);
+		color: var(--main-background-color);
 	}
 
 	@media (max-width: 480px) {

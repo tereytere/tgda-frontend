@@ -14,6 +14,8 @@ export const FooterContainer = styled.footer`
 	position: fixed;
 	left: 0;
 	bottom: 0;
+	overflow: hidden;
+	overflow-x: hidden;
 
 	@media (max-width: 480px) {
 		font-size: 0.9rem;
