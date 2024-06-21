@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import { SearchResults } from "../interfaces/search.interface";
+import SearchIcon from "@mui/icons-material/Search";
 import {
 	Navbar,
 	Container,
 	NavbarBrand,
 	NavbarNav,
+	NavbarRight,
 	NavbarNavItem,
 	NavbarNavLink,
 	SearchForm,
 	SearchInput,
 	SearchButton,
+	MenuIcon,
+	NavIcon,
+	MenuBtn,
 } from "../styledComponents/NavbarStyles";
+import {
+	LoginButton,
+	LoginButtonContainer,
+} from "../styledComponents/LoginStyles";
 
 export default function NavbarComponent() {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -50,6 +60,13 @@ export default function NavbarComponent() {
 		}
 	};
 
+	const { isAuthenticated, handleLogout } = useAuth();
+
+	const handleLoginRedirect = () => {
+		// Redirect to login page
+		navigate("/login");
+	};
+
 	return (
 		<Navbar>
 			<Container>
@@ -63,6 +80,10 @@ export default function NavbarComponent() {
 					/>
 					TGdA
 				</NavbarBrand>
+				<MenuBtn type="checkbox" id="menu-btn" />
+				<MenuIcon htmlFor="menu-btn">
+					<NavIcon />
+				</MenuIcon>
 				<NavbarNav>
 					<NavbarNavItem>
 						<NavbarNavLink to="/libros">Libros</NavbarNavLink>
@@ -79,17 +100,30 @@ export default function NavbarComponent() {
 					<NavbarNavItem>
 						<NavbarNavLink to="/ayuda">Ayuda</NavbarNavLink>
 					</NavbarNavItem>
+					<NavbarNavItem>
+						<NavbarRight>
+							<SearchForm onSubmit={handleSearch}>
+								<SearchInput
+									type="search"
+									placeholder="Buscar"
+									aria-label="Search"
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
+								/>
+								<SearchButton type="submit">
+									<SearchIcon />
+								</SearchButton>{" "}
+							</SearchForm>
+							<LoginButtonContainer>
+								{isAuthenticated ? (
+									<LoginButton onClick={handleLogout}>Logout</LoginButton>
+								) : (
+									<LoginButton onClick={handleLoginRedirect}>Login</LoginButton>
+								)}
+							</LoginButtonContainer>
+						</NavbarRight>
+					</NavbarNavItem>
 				</NavbarNav>
-				<SearchForm onSubmit={handleSearch}>
-					<SearchInput
-						type="search"
-						placeholder="Buscar"
-						aria-label="Search"
-						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
-					/>
-					<SearchButton type="submit">Buscar</SearchButton>
-				</SearchForm>
 				{error && error.message && <div>Error: {error.message}</div>}
 			</Container>
 		</Navbar>
