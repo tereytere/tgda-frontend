@@ -5,6 +5,7 @@ import { Theme } from "../interfaces/theme.interface";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Form from "../components/Form";
+import CharityListContainer from "../components/CharityListContainer";
 import {
 	BodyContentContainer,
 	Title,
@@ -13,6 +14,11 @@ import {
 	ListItem,
 	Linked,
 } from "../styledComponents/ContentStyles";
+import {
+	HelpContainer,
+	LeftSection,
+	RightSection,
+} from "../styledComponents/HelpStyles";
 
 const Help: React.FC = () => {
 	const [theme, setTheme] = useState<Theme | null>(null);
@@ -86,6 +92,7 @@ const Help: React.FC = () => {
 			<ResultsTitle>
 				<h3>Posts</h3>
 			</ResultsTitle>
+			{/* Posts list */}
 			<List>
 				{posts.map((post) => (
 					<ListItem key={post.id}>
@@ -98,6 +105,7 @@ const Help: React.FC = () => {
 			<ResultsTitle>
 				<h3>Autores</h3>
 			</ResultsTitle>
+			{/* Authors list */}
 			<List>
 				{authors.map((author) => (
 					<ListItem key={author.id}>
@@ -107,17 +115,28 @@ const Help: React.FC = () => {
 					</ListItem>
 				))}
 			</List>
+			{/* Donations and Join sections */}
+			<HelpContainer>
+				<LeftSection>
+					<ResultsTitle>
+						<h3>Dona a las organizaciones comprometidas con el planeta</h3>
+					</ResultsTitle>
+					<CharityListContainer />
+				</LeftSection>
+				<RightSection>
+					<ResultsTitle>
+						<h3>Únete</h3>
+					</ResultsTitle>
+					<div className="form-div">
+						<Form />
+					</div>
+				</RightSection>
+			</HelpContainer>
 			<ResultsTitle>
 				<h3>Elige un nombre para tu acompañante</h3>
 			</ResultsTitle>
-			<Link to={`/pokemon/`}>Pokemon</Link>
+			<Link to="/pokemon">Pokemon</Link>
 			<p>10277</p>
-			<ResultsTitle>
-				<h3>Únete</h3>
-			</ResultsTitle>
-			<div className="form-div">
-				<Form />
-			</div>
 		</BodyContentContainer>
 	);
 };

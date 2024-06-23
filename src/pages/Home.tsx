@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import Map from "../components/Map";
 import {
 	BodyContentContainer,
+	CenteredParagraph,
+	HorizontalList,
 	TitleContainer,
 	Title,
-	Linked,
 } from "../styledComponents/ContentStyles";
 
 const Home: React.FC = () => {
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
 					<h1>Tu Granito de Arena</h1>
 				</Title>
 			</TitleContainer>
-			<p>
+			<CenteredParagraph>
 				¿Te preocupa el estado de nuestro planeta?
 				<br />
 				¿Quieres contribuir al cuidado del medioambiente pero no sabes por dónde
@@ -45,17 +46,15 @@ const Home: React.FC = () => {
 				<br />
 				Podemos crear un futuro más verde y saludable para todos los habitantes
 				de este planeta.
-			</p>
-			<Linked>
+			</CenteredParagraph>
+			<HorizontalList>
 				<h2 className="linked">
 					<Link to={`/temas/`}>Temas</Link>
-					<br />
 					<Link to={`/autores/`}>Autores</Link>
-					<br />
 					<Link to={`/posts/`}>Posts</Link>
-					<br />
 				</h2>
-			</Linked>
+				<br />
+			</HorizontalList>
 			<Map />
 		</BodyContentContainer>
 	);
