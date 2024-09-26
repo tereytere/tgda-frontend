@@ -21,7 +21,7 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps<Theme>> = ({
   //TODO: hacer objeto
   const [editTheme, setEditTheme] = useState<Theme | null>(null);
   const [editedThemeName, setEditedThemeName] = useState<string>('');
-//TODO: simplificar edits
+  //TODO: simplificar edits
   const handleEditClick = (theme: Theme) => {
     setEditTheme(theme);
     setEditedThemeName(theme.name);
@@ -33,7 +33,7 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps<Theme>> = ({
       try {
         const response = await axios.put(
           `http://localhost:8000/themes/${editTheme.id}`,
-          { name: editedThemeName } // Ensure the payload matches the backend expectation
+          { name: editedThemeName } // Add bearer token
         );
 
         console.log('Theme updated:', response.data);

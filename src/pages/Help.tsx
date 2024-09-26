@@ -82,8 +82,6 @@ const Help: React.FC = () => {
           </li>
         ))}
       </ul>
-      <h3>Elige un nombre para tu acompañante</h3>
-      <p>10277</p>
     </div>
   );
 };

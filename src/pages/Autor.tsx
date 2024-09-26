@@ -15,7 +15,7 @@ const Autor: React.FC = () => {
 	const [author, setAuthor] = useState<Author | null>(null);
 	const [authorPosts, setAuthorPosts] = useState<Post[]>([]);
 
-  //TODO: pasar el useEffect a Hooks
+	//TODO: pasar el useEffect a Hooks
 	useEffect(() => {
 		const fetchAuthor = async () => {
 			try {
@@ -65,6 +65,11 @@ const Autor: React.FC = () => {
 				<p>Encuéntrale también en:</p>
 				{author.instagram && (
 					<a href={author.instagram} target="_blank" rel="noopener noreferrer">
+						<Instagram fontSize="large" />
+					</a>
+				)}
+				{author.tiktok && (
+					<a href={author.tiktok} target="_blank" rel="noopener noreferrer">
 						<Instagram fontSize="large" />
 					</a>
 				)}

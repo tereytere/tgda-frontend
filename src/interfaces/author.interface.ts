@@ -7,6 +7,7 @@ export interface Author {
   image?: string;
   youtube?: string | null;
   instagram?: string | null;
+  tiktok?: string | null;
   podcast?: string | null;
   webpage?: string | null;
   language?: string | null;

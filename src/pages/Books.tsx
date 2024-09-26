@@ -24,42 +24,45 @@ const Books: React.FC = () => {
 	}, []);
 
 	return (
-		<div className='content'>
-			<ul className='list'>
-				{books.map((book) => (
-					<li key={book.id} className='book-item'>
-						<h3>{book.title}</h3>
-						<div className='book-details'>
-							<div className='image-container'>
-								{book.image && <img src={book.image} alt={book.title} />}
+		<>
+			<div className='content'>
+				<h2>Libros</h2>
+				<ul className='list'>
+					{books.map((book) => (
+						<li key={book.id} className='book-item'>
+							<h3>{book.title}</h3>
+							<div className='book-details'>
+								<div className='image-container'>
+									{book.image && <img src={book.image} alt={book.title} />}
+								</div>
+								<div className='text-container'>
+									<p>{book.body}</p>
+									{typeof book.author === "object" && (
+										<h4>
+											<Link to={`/autor/${(book.author as Author).id}`}>
+												{(book.author as Author).name}
+											</Link>
+										</h4>
+									)}
+									{book.themes && <Themes themes={book.themes} />}
+									{book.url && (
+										<p>Reseñas:
+											<a
+												href={book.url}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{book.url}
+											</a>
+										</p>
+									)}
+								</div>
 							</div>
-							<div className='text-container'>
-								<p>{book.body}</p>
-								{typeof book.author === "object" && (
-									<h4>
-										<Link to={`/autor/${(book.author as Author).id}`}>
-											{(book.author as Author).name}
-										</Link>
-									</h4>
-								)}
-								{book.themes && <Themes themes={book.themes} />}
-								{book.url && (
-									<p>Reseñas: 
-										<a
-											href={book.url}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											{book.url}
-										</a>
-									</p>
-								)}
-							</div>
-						</div>
-					</li>
-				))}
-			</ul>
-		</div>
+						</li>
+					))}
+				</ul>
+			</div>
+		</>
 	);
 };
 

@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Authors from "./pages/Authors";
 import Autor from "./pages/Autor";
@@ -20,35 +20,41 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
 import Posts from "./pages/Posts";
 import SinglePost from './pages/SinglePost';
+import Links from "./pages/Links";
+import TikTok from "./pages/TikTok";
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/inicio" element={<Home />} />
-          <Route path="/autores" element={<Authors />} />
-          <Route path="/autor/:authorId" element={<Autor />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<SinglePost />} />
-          <Route path="/libros" element={<Books />} />
-          <Route path="/instagram" element={<Instagram />} />
-          <Route path="/podcasts" element={<Podcasts />} />
-          <Route path="/peliculas" element={<Movies />} />
-          <Route path="/temas" element={<Themes />} />
-          <Route path="/temas/:id" element={<Tema />} />
-          <Route path="/paginasweb" element={<Webpages />} />
-          <Route path="/youtube" element={<Youtube />} />
-          <Route path="/ayuda" element={<Help />} />
-          <Route path="/resultados/:query" element={<SearchResultsPage />} />
-          <Route path="/pokemon" element={<Pokemon />} />
-          <Route path="/*" element={<Error />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </ThemeProvider>
+    <div className="App">
+      <Router>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <NavBar />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/inicio" element={<Home />} />
+            <Route path="/autores" element={<Authors />} />
+            <Route path="/autor/:authorId" element={<Autor />} />
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:id" element={<SinglePost />} />
+            <Route path="/libros" element={<Books />} />
+            <Route path="/links" element={<Links />} />
+            <Route path="/instagram" element={<Instagram />} />
+            <Route path="/tiktok" element={<TikTok />} />
+            <Route path="/podcasts" element={<Podcasts />} />
+            <Route path="/peliculas" element={<Movies />} />
+            <Route path="/temas" element={<Themes />} />
+            <Route path="/temas/:id" element={<Tema />} />
+            <Route path="/paginasweb" element={<Webpages />} />
+            <Route path="/youtube" element={<Youtube />} />
+            <Route path="/ayuda" element={<Help />} />
+            <Route path="/resultados/:query" element={<SearchResultsPage />} />
+            <Route path="/pokemon" element={<Pokemon />} />
+            <Route path="/*" element={<Error />} />
+          </Routes>
+          <Footer />
+        </ThemeProvider>
+      </Router>
+    </div>
   );
 }

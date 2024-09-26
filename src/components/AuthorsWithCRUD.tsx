@@ -10,7 +10,7 @@ interface AuthorsWithCRUDProps {
   entryActionsProps: EntryActionsProps<Author>;
   setEditAuthorName: React.Dispatch<React.SetStateAction<string>>;
   setAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
-  themes: Theme[]; // List of themes fetched from backend
+  themes: Theme[];
   setThemes: React.Dispatch<React.SetStateAction<Theme[]>>;
 }
 
@@ -52,7 +52,7 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
       try {
         const response = await axios.put(
           `http://localhost:8000/authors/${editAuthor.id}`,
-          { ...editedAuthorAttributes, name: editedAuthorName, themes: editAuthor.themes } // Include themes in the payload
+          { ...editedAuthorAttributes, name: editedAuthorName, themes: editAuthor.themes }//Add bearer token
         );
 
         console.log('Author updated:', response.data);
@@ -86,7 +86,6 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
                 onChange={(e) => setEditedAuthorName(e.target.value)}
                 placeholder="Enter edited author name"
               />
-              {/* Render themes as checkboxes or dropdowns */}
               {themes.map(theme => (
                 <label key={theme.id}>
                   <input
