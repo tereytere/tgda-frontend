@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LoginButtonContainer = styled.div`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
 
@@ -86,23 +86,6 @@ export const LoginHeader = styled.div`
 
 	@media (max-width: 480px) {
 		font-size: 1.5rem;
-	}
-`;
-
-export const Inputs = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-`;
-
-export const InputsBar = styled.input`
-	width: 100%;
-	padding: 0.75rem;
-	border-radius: 6px;
-	border: 1px solid var(--border-color);
-
-	@media (max-width: 480px) {
-		width: 90%;
 	}
 `;
 

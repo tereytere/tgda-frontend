@@ -1,67 +1,99 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { BodyContentContainer } from "../styledComponents/ContentStyles";
+import React, { useState, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 import {
 	LoginContainer,
 	LoginBox,
 	LoginHeader,
-	Inputs,
-	InputsBar,
-	SubmitButton,
+	LoginButtonContainer,
+	SubmitButton
 } from "../styledComponents/LoginStyles";
 
 const Login: React.FC = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
+	const formRef = useRef<HTMLFormElement | null>(null);
 
-	const handleSubmit = async (event: React.FormEvent) => {
+	const handleLogin = async (event: React.FormEvent) => {
 		event.preventDefault();
-
 		try {
-			const response = await axios.post(
-				"http://localhost:8000/login",
-				{
-					username,
-					password,
+			const response = await fetch('http://localhost:8000/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
 				},
-				{ withCredentials: true }
-			);
+				body: JSON.stringify({ email, password }),
+			});
 
-			console.log(response.data);
-			navigate("/");
+			if (!response.ok) {
+				throw new Error('Error en Login');
+			}
+
+			const data = await response.json();
+
+			const token = data.token;
+
+			// Store the token in localStorage
+			localStorage.setItem("token", token);
+			localStorage.setItem("token_type", data.token_type);
+
+			// Redirect the user after successful login
+			navigate('/');
+
+			// Reset form fields
+			setEmail('');
+			setPassword('');
+
+			if (formRef.current) {
+				formRef.current.reset();
+			}
 		} catch (error) {
-			console.error("Error logging in", error);
+			console.error('Error en Login', error);
 		}
 	};
 
+
 	return (
-		<BodyContentContainer>
+		<div className='content'>
 			<LoginContainer>
 				<LoginBox>
 					<LoginHeader>Login</LoginHeader>
-					<form onSubmit={handleSubmit}>
-						<Inputs>
-							<InputsBar
-								placeholder="Enter your username"
-								type="text"
-								value={username}
-								onChange={(e) => setUsername(e.target.value)}
-							/>
-							<InputsBar
-								placeholder="Enter your password"
-								type="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</Inputs>
-						<SubmitButton type="submit">Login</SubmitButton>
-					</form>
+					<div className="flex">
+						<div className="component login">
+							<Form ref={formRef} onSubmit={handleLogin}>
+								<Form.Group className="mb-3">
+									<Form.Control
+										type="text"
+										className="text input"
+										placeholder='Escribe tu Email'
+										name="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+									/>
+								</Form.Group>
+								<Form.Group className="mb-3">
+									<Form.Control
+										type="password"
+										className="text input"
+										placeholder='Escribe tu Contraseña'
+										name="password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										required
+									/>
+								</Form.Group>
+								<LoginButtonContainer>
+									<SubmitButton type="submit">Login</SubmitButton>
+								</LoginButtonContainer>
+							</Form>
+						</div>
+					</div>
 				</LoginBox>
 			</LoginContainer>{" "}
-		</BodyContentContainer>
+		</div>
 	);
-};
+}
 
 export default Login;

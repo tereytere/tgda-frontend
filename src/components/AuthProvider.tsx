@@ -3,7 +3,7 @@ import axios from 'axios';
 
 interface AuthContextType {
     isAuthenticated: boolean;
-    login: (credentials: { username: string; password: string }) => Promise<void>;
+    login: (credentials: { email: string; password: string }) => Promise<void>;
     logout: () => void;
 }
 
@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
 
-    const login = async (credentials: { username: string; password: string }) => {
+    const login = async (credentials: { email: string; password: string }) => {
         try {
             const response = await axios.post('http://localhost:8000/login', credentials, {
                 withCredentials: true,
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             throw new Error('Login failed. Please check your credentials and try again.');
         }
     };
-    
+
     const logout = () => {
         localStorage.removeItem('authToken');
         setIsAuthenticated(false);
