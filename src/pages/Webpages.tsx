@@ -4,6 +4,18 @@ import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/post.interface';
 import { Author } from '../interfaces/author.interface'
 import Themes from '../components/Themes';
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	AuthorLink,
+} from "../styledComponents/ContentStyles";
+import {
+	StyledImage,
+} from "../styledComponents/PostStyles";
+
+
 
 const Webpages: React.FC = () => {
   const [webpages, setWebpage] = useState<Post[]>([]);
@@ -23,29 +35,32 @@ const Webpages: React.FC = () => {
 
   return (
     <>
-      <div className='content'>
-        <h2>Páginas Web</h2>
-        <ul>
-          {webpages.map(webpage => (
-            <li key={webpage.id}>
-              <h3>{webpage.title}</h3>
+		<BodyContentContainer>
+			<List>
+				{webpages.map((webpage) => (
+					<ListItem key={webpage.id}>
+							<Linked>
+								<h3 className="linked">
+									<Link to={`/posts/${webpage.id}`}>{webpage.title}</Link>
+								</h3>
+							</Linked>
               <p>{webpage.body}</p>
-              {webpage.image && <img src={webpage.image} alt={webpage.title} />}
+              {webpage.image && <StyledImage src={webpage.image} alt={webpage.title} />}
               {webpage.url && <p><a href={webpage.url} target="_blank" rel="noopener noreferrer">{webpage.url}</a></p>}
-              {typeof webpage.author === 'object' ? (
-              <p>
-                Autor: <Link to={`/autor/${(webpage.author as Author).id}`}>
-                  {(webpage.author as Author).name}
-                </Link>
-              </p>
-            ) : (
-              <p>Autor: {webpage.author}</p>
-            )}
+              <AuthorLink>
+										{typeof webpage.author === "object" && (
+											<h4 className="author-link">
+												<Link to={`/autor/${(webpage.author as Author).id}`}>
+													{(webpage.author as Author).name}
+												</Link>
+											</h4>
+										)}
+									</AuthorLink>
             {webpage.themes && <Themes themes={webpage.themes} />}
-            </li>
+            </ListItem>
           ))}
-        </ul>
-      </div>
+        </List>
+      </BodyContentContainer>
     </>
   );
 };

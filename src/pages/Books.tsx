@@ -4,6 +4,16 @@ import { Link } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	AuthorLink,
+	ReviewContainer,
+} from "../styledComponents/ContentStyles";
+import { BookItem } from "../styledComponents/PostStyles";
+import GoodreadsIcon from "../components/GoodreadsIcon";
 
 const Books: React.FC = () => {
 	const [books, setBooks] = useState<Post[]>([]);

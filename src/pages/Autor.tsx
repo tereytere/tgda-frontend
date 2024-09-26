@@ -1,112 +1,240 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Author } from "../interfaces/author.interface";
-import { Post } from "../interfaces/post.interface";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 import {
 	Instagram,
 	Podcasts,
 	Link as LinkIcon,
 	YouTube,
+	Movie as MovieIcon,
 } from "@mui/icons-material";
+import { InstagramEmbed } from "react-social-media-embed";
+import { TikTokEmbed } from "react-social-media-embed";
+import Themes from "../components/Themes";
+import Video from "../components/Video";
+import { useAutorData } from "../hooks/useAutorData";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	ResultsTitle,
+	ReviewContainer,
+} from "../styledComponents/ContentStyles";
+import {
+	VideoTextContainer,
+	VideoContainer,
+	ContentContainer,
+} from "../styledComponents/VideoStyles";
+import GoodreadsIcon from "../components/GoodreadsIcon";
+import {
+	StyledIcon,
+	SocialMediaContainer,
+	YouTubeItem,
+	BookItem,
+	StyledImage,
+	MultimediaTextContainer,
+	MultimediaContainer,
+	MultimediaContentContainer,
+} from "../styledComponents/PostStyles";
 
 const Autor: React.FC = () => {
-	const { authorId } = useParams<{ authorId: string }>();
-	const [author, setAuthor] = useState<Author | null>(null);
-	const [authorPosts, setAuthorPosts] = useState<Post[]>([]);
-
-	//TODO: pasar el useEffect a Hooks
-	useEffect(() => {
-		const fetchAuthor = async () => {
-			try {
-				const response = await axios.get<Author>(
-					`http://localhost:8000/authors`,
-					{
-						params: {
-							authorId: authorId,
-						},
-					}
-				);
-				setAuthor(response.data);
-			} catch (error) {
-				console.error("Error fetching author:", error);
-			}
-		};
-
-		const fetchAuthorPosts = async () => {
-			try {
-				const response = await axios.get<Post[]>(
-					`http://localhost:8000/posts`,
-					{
-						params: {
-							author_id: authorId,
-						},
-					}
-				);
-				setAuthorPosts(response.data);
-			} catch (error) {
-				console.error("Error fetching author posts:", error);
-			}
-		};
-
-		fetchAuthor();
-		fetchAuthorPosts();
-	}, [authorId]);
+	const { authorId } = useParams<{ authorId?: string }>();
+	const { author, authorPosts } = useAutorData(authorId || "");
 
 	if (!author) {
 		return <div>Cargando...</div>;
 	}
 
 	return (
-		<div className='content'>
-			<h2>{author.name}</h2>
+		<BodyContentContainer>
+			<ResultsTitle>
+				<h2>{author.name}</h2>
+			</ResultsTitle>
 			{author.image && <img src={author.image} alt={author.name} />}
-			<div className='socialMedia'>
-				<p>Encuéntrale también en:</p>
+			<p>Encuéntrale también en:</p>
+			<SocialMediaContainer>
 				{author.instagram && (
 					<a href={author.instagram} target="_blank" rel="noopener noreferrer">
-						<Instagram fontSize="large" />
-					</a>
-				)}
-				{author.tiktok && (
-					<a href={author.tiktok} target="_blank" rel="noopener noreferrer">
-						<Instagram fontSize="large" />
+						<StyledIcon>
+							<Instagram fontSize="large" />
+						</StyledIcon>
 					</a>
 				)}
 				{author.podcast && (
 					<a href={author.podcast} target="_blank" rel="noopener noreferrer">
-						<Podcasts fontSize="large" />
+						<StyledIcon>
+							<Podcasts fontSize="large" />
+						</StyledIcon>
 					</a>
 				)}
 				{author.webpage && (
 					<a href={author.webpage} target="_blank" rel="noopener noreferrer">
-						<LinkIcon fontSize="large" />
+						<StyledIcon>
+							<LinkIcon fontSize="large" />
+						</StyledIcon>
 					</a>
 				)}
 				{author.youtube && (
 					<a href={author.youtube} target="_blank" rel="noopener noreferrer">
-						<YouTube fontSize="large" />
+						<StyledIcon>
+							<YouTube fontSize="large" />
+						</StyledIcon>
 					</a>
 				)}
-			</div>
-			<h3>Todas las creaciones de {author.name}:</h3>
-			<ul>
+			</SocialMediaContainer>
+			<ResultsTitle>
+				<p>Todas las creaciones de {author.name}:</p>
+			</ResultsTitle>
+			<List>
 				{authorPosts.map((post) => (
-					<li key={post.id}>
-						<h4>{post.title}</h4>
-						<p>{post.body}</p>
-						{post.image && <img src={post.image} alt={post.title} />}
-						{post.url && (
-							<p>
-								<a href={post.url} target="_blank" rel="noopener noreferrer">
-									{post.url}
-								</a>
-							</p>
-						)}{" "}
-					</li>
+					<React.Fragment key={post.id}>
+						{post.type === "youtube" && (
+							<ListItem>
+								<YouTubeItem>
+									<Linked>
+										<h3 className="linked">
+											<Link to={`/posts/${post.id}`}>{post.title}</Link>
+										</h3>
+									</Linked>
+									<VideoTextContainer>
+										<VideoContainer>
+											<Video url={post.url} title={post.title} />
+										</VideoContainer>
+										<ContentContainer>
+											<div className="content-container">
+												<p>{post.body}</p>
+												{post.themes && <Themes themes={post.themes} />}
+											</div>
+										</ContentContainer>
+									</VideoTextContainer>
+								</YouTubeItem>
+							</ListItem>
+						)}
+						{post.type === "libro" && (
+							<ListItem>
+								<BookItem>
+									<Linked>
+										<h3 className="linked">
+											<Link to={`/posts/${post.id}`}>{post.title}</Link>
+										</h3>
+									</Linked>
+									<div className="book-details">
+										<div className="image-container">
+											{post.image && <img src={post.image} alt={post.title} />}
+										</div>
+										<div className="text-container">
+											<p>{post.body}</p>
+											{post.themes && <Themes themes={post.themes} />}
+											{post.url && (
+												<ReviewContainer>
+													<span>Reseñas:</span>
+													<GoodreadsIcon url={post.url} />
+												</ReviewContainer>
+											)}
+										</div>
+									</div>
+								</BookItem>
+							</ListItem>
+						)}
+						{post.type === "película" && (
+							<ListItem>
+								<Linked>
+									<h3 className="linked">
+										<Link to={`/posts/${post.id}`}>{post.title}</Link>
+									</h3>
+								</Linked>
+								<VideoTextContainer>
+									<VideoContainer>
+										<Video
+											url={post.image ?? undefined}
+											title={post.title ?? undefined}
+										/>
+									</VideoContainer>
+									<ContentContainer>
+										<div className="content-container">
+											<p>{post.body}</p>
+											{post.url && (
+												<p>
+													Mírala entera aquí:
+													<a
+														href={post.url}
+														target="_blank"
+														rel="noopener noreferrer"
+														style={{
+															display: "flex",
+															alignItems: "center",
+															textDecoration: "none",
+															color: "inherit",
+														}}
+													>
+														<StyledIcon>
+															<MovieIcon fontSize="large" />
+														</StyledIcon>
+													</a>
+												</p>
+											)}
+											{post.themes && <Themes themes={post.themes} />}
+										</div>
+									</ContentContainer>
+								</VideoTextContainer>
+							</ListItem>
+						)}
+						{post.type === "instagram" && (
+							<ListItem>
+								<Linked>
+									<h3 className="linked">
+										<Link to={`/posts/${post.id}`}>{post.title}</Link>
+									</h3>
+								</Linked>
+								<MultimediaTextContainer>
+									<MultimediaContainer>
+										{post.image && (
+											<div style={{ display: "flex", justifyContent: "left" }}>
+												<InstagramEmbed url={post.image} width={328} />
+											</div>
+										)}
+										{post.url && (
+											<div style={{ display: "flex", justifyContent: "left" }}>
+												<TikTokEmbed url={post.url} width={325} />
+											</div>
+										)}
+									</MultimediaContainer>
+									<MultimediaContentContainer>
+										<p>{post.body}</p>
+										{post.themes && <Themes themes={post.themes} />}
+									</MultimediaContentContainer>
+								</MultimediaTextContainer>
+							</ListItem>
+						)}
+						{post.type === "webpage" && (
+							<ListItem>
+								<Linked>
+									<h3 className="linked">
+										<Link to={`/posts/${post.id}`}>{post.title}</Link>
+									</h3>
+								</Linked>
+								<p>{post.body}</p>
+								{post.image && (
+									<StyledImage src={post.image} alt={post.title} />
+								)}
+								{post.url && (
+									<p>
+										<a
+											href={post.url}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{post.url}
+										</a>
+									</p>
+								)}
+								{post.themes && <Themes themes={post.themes} />}
+							</ListItem>
+						)}
+					</React.Fragment>
 				))}
-			</ul>
-		</div>
+			</List>
+		</BodyContentContainer>
 	);
 };
 

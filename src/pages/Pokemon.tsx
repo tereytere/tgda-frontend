@@ -2,6 +2,7 @@ import { Button, Container, Grid } from "@mui/material";
 import PokemonList from "../components/Pokemon/PokemonList";
 import usePokemons from "../hooks/usePokemons";
 import { IndexedType } from "../interfaces/pokemon.interface";
+import { BodyContentContainer } from "../styledComponents/ContentStyles";
 
 const Pokemon = () => {
   const {
@@ -25,8 +26,7 @@ const Pokemon = () => {
   };
 
   return (
-    <>
-      <div className='content'>
+      <BodyContentContainer>
         <Container>
           <Grid container spacing={2} mt={1}>
             <Grid
@@ -75,8 +75,7 @@ const Pokemon = () => {
             </Grid>
           </Grid>
         </Container>
-      </div>
-    </>
+      </BodyContentContainer>
   );
 };
 

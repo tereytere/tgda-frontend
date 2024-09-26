@@ -4,54 +4,92 @@ import { Link } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
+import Video from "../components/Video";
+import { Movie as MovieIcon } from "@mui/icons-material";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	AuthorLink,
+} from "../styledComponents/ContentStyles";
+import {
+	VideoContainer,
+	ContentContainer,
+	VideoTextContainer,
+} from "../styledComponents/VideoStyles";
+import { StyledIcon } from "../styledComponents/PostStyles";
 
 const Movies: React.FC = () => {
-	const [movies, setMovie] = useState<Post[]>([]);
+	const [movies, setMovies] = useState<Post[]>([]);
 
 	useEffect(() => {
-		const fetchMovie = async () => {
+		const fetchMovies = async () => {
 			try {
 				const response = await axios.get<Post[]>(
 					"http://localhost:8000/posts?type=película"
 				);
-				setMovie(response.data);
+				setMovies(response.data);
 			} catch (error) {
-				console.error("Error fetching movie:", error);
+				console.error("Error fetching movies:", error);
 			}
 		};
 
-		fetchMovie();
+		fetchMovies();
 	}, []);
 
 	return (
-		<>
-			<div className='content'>
-				<ul className='list'>
-					{movies.map((movie) => (
-						<li key={movie.id}>
-							<h3>{movie.title}</h3>
-							<p>{movie.body}</p>
-							{movie.image && <img src={movie.image} alt={movie.title} />}
-							{movie.url && (
-								<p>
-									<a href={movie.url} target="_blank" rel="noopener noreferrer">
-										{movie.url}
-									</a>
-								</p>
-							)}
-							{typeof movie.author === "object" && (
-								<h4>
-									<Link to={`/autor/${(movie.author as Author).id}`}>
-										{(movie.author as Author).name}
-									</Link>
-								</h4>
-							)}
-							{movie.themes && <Themes themes={movie.themes} />}
-						</li>
-					))}
-				</ul>
-			</div>
-		</>
+		<BodyContentContainer>
+			<List>
+				{movies.map((movie) => (
+					<ListItem key={movie.id}>
+						<Linked>
+							<h3 className="linked">
+								<Link to={`/posts/${movie.id}`}>{movie.title}</Link>
+							</h3>
+						</Linked>
+						<VideoTextContainer>
+							<VideoContainer>
+								<Video
+									url={movie.image ?? undefined}
+									title={movie.title ?? undefined}
+								/>
+							</VideoContainer>
+							<ContentContainer>
+								<div className="content-container">
+									<p>{movie.body}</p>
+									{movie.url && (
+										<p>
+											Mírala entera aquí:
+											<a
+												href={movie.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}
+											>
+												<StyledIcon>
+													<MovieIcon fontSize="large" />
+												</StyledIcon>
+											</a>
+										</p>
+									)}
+									<AuthorLink>
+										{typeof movie.author === "object" && (
+											<h4 className="author-link">
+												<Link to={`/autor/${(movie.author as Author).id}`}>
+													{(movie.author as Author).name}
+												</Link>
+											</h4>
+										)}
+									</AuthorLink>
+									{movie.themes && <Themes themes={movie.themes} />}
+								</div>
+							</ContentContainer>
+						</VideoTextContainer>
+					</ListItem>
+				))}
+			</List>
+		</BodyContentContainer>
 	);
 };
 

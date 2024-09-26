@@ -1,96 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-import { SearchResults } from '../interfaces/search.interface';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import { SearchResults } from "../interfaces/search.interface";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+  Title,
+  ResultsContainer,
+  ResultsTitle
+} from "../styledComponents/ContentStyles";
 
 const SearchResultsPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
-  const { query } = useParams<{ query: string }>(); // Extract search query from URL
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
+	const [searchResults, setSearchResults] = useState<SearchResults | null>(
+		null
+	);
+	const { query } = useParams<{ query: string }>(); // Extract search query from URL
 
-  useEffect(() => {
-    setSearchQuery(query ?? '');
-  }, [query]);
+	useEffect(() => {
+		setSearchQuery(query ?? "");
+	}, [query]);
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      if (!searchQuery) return;
+	useEffect(() => {
+		const fetchSearchResults = async () => {
+			if (!searchQuery) return;
 
-      setLoading(true);
-      setError(null);
+			setLoading(true);
+			setError(null);
 
-      try {
-        const response = await axios.get<SearchResults>('http://localhost:8000/search', {
-          params: { query: searchQuery }
-        });
-        setSearchResults(response.data);
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-        setError('Error fetching search results');
-      } finally {
-        setLoading(false);
-      }
-    };
+			try {
+				const response = await axios.get<SearchResults>(
+					"http://localhost:8000/search",
+					{
+						params: { query: searchQuery },
+					}
+				);
+				setSearchResults(response.data);
+			} catch (error) {
+				console.error("Error fetching search results:", error);
+				setError("Error fetching search results");
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    fetchSearchResults();
-  }, [searchQuery]);
+		fetchSearchResults();
+	}, [searchQuery]);
 
-  if (loading) {
-    return <div className='content'>Cargando...</div>;
-  }
+	if (loading) {
+		return <BodyContentContainer>Cargando...</BodyContentContainer>;
+	}
 
-  if (error) {
-    return <div className='content'>Error: {error}</div>;
-  }
+	if (error) {
+		return <BodyContentContainer>Error: {error}</BodyContentContainer>;
+	}
 
-  if (!searchResults || (searchResults && searchResults.authorResults.length === 0 && searchResults.postResults.length === 0 && searchResults.themeResults.length === 0)) {
-    return <div className='content'>No se han encontrado resultados</div>;
-  }
+	if (
+		!searchResults ||
+		(searchResults &&
+			searchResults.authorResults.length === 0 &&
+			searchResults.postResults.length === 0 &&
+			searchResults.themeResults.length === 0)
+	) {
+		return <div className="content">No se han encontrado resultados</div>;
+	}
 
-  const { authorResults, postResults, themeResults } = searchResults;
+	const { authorResults, postResults, themeResults } = searchResults;
 
-  return (
-    <div className='content'>
-      <h2>Resultados</h2>
-      <div className='search-results'>
-        {authorResults.length > 0 && (
-          <div>
-            <h3>Autores</h3>
-            <ul>
-              {authorResults.map(author => (
-                <li key={author.id}>
-                  <Link to={`/autor/${author.id}`}>{author.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+	return (
+		<BodyContentContainer>
+			<Title>
+				<h2>Resultados</h2>
+			</Title>
+			<ResultsContainer>
+				{authorResults.length > 0 && (
+					<div>
+						<ResultsTitle>
+							<h3>Autores</h3>
+						</ResultsTitle>
+						<List>
+							{authorResults.map((author) => (
+								<ListItem key={author.id}>
+									<Linked>
+										<Link to={`/autor/${author.id}`}>{author.name}</Link>
+									</Linked>
+								</ListItem>
+							))}
+						</List>
+					</div>
+				)}
 
-        {postResults.length > 0 && (
-          <div>
-            <h3>Posts</h3>
-            <ul>
-              {postResults.map(post => (
-                <li key={post.id}>{post.title}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {themeResults.length > 0 && (
-          <div>
-            <h3>Temas</h3>
-            <ul>
-              {themeResults.map(theme => (
-                <li key={theme.id}>{theme.name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+				{postResults.length > 0 && (
+					<div>
+						<ResultsTitle>
+							<h3>Posts</h3>
+						</ResultsTitle>
+						<List>
+							{postResults.map((post) => (
+								<ListItem key={post.id}>
+									<Linked>
+										<Link to={`/posts/${post.id}`}>{post.title}</Link>
+									</Linked>
+								</ListItem>
+							))}
+						</List>
+					</div>
+				)}
+				{themeResults.length > 0 && (
+					<div>
+						<ResultsTitle>
+							<h3>Temas</h3>
+						</ResultsTitle>
+						<List>
+							{themeResults.map((theme) => (
+								<ListItem key={theme.id}>
+									<Linked>
+										<Link to={`/temas/${theme.id}`}>{theme.name}</Link>
+									</Linked>
+								</ListItem>
+							))}
+						</List>
+					</div>
+				)}
+			</ResultsContainer>
+		</BodyContentContainer>
+	);
 };
 
 export default SearchResultsPage;

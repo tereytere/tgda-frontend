@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Map from "../components/Map";
+import {
+	BodyContentContainer,
+	CenteredParagraph,
+	HorizontalList,
+	TitleContainer,
+	Title,
+} from "../styledComponents/ContentStyles";
 
 const Home: React.FC = () => {
 	return (
@@ -15,7 +22,7 @@ const Home: React.FC = () => {
 				<Link to={`/posts/`}>Posts</Link>
 			</h2>
 			<Map />
-		</div>
+		</BodyContentContainer>
 	);
 };
 

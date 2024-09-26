@@ -1,10 +1,9 @@
+import { BodyContentContainer } from "../styledComponents/ContentStyles";
 
 export default function Error() {
-  return (
-    <>
-      <div className='content'>
-        <h2>Error 404</h2>
-      </div>
-    </>
-  )
+	return (
+		<BodyContentContainer>
+			<h2>Error 404</h2>
+		</BodyContentContainer>
+	);
 }

@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import { Theme } from '../interfaces/theme.interface';
 import ThemesWithCRUD from '../components/ThemesWithCRUD';
+import { useAuth } from "../hooks/useAuth";
+import {
+	BodyContentContainer,
+	List,
+	ListItem,
+	Linked,
+	Title,
+} from "../styledComponents/ContentStyles";
+
 
 const Themes: React.FC = () => {
   const [themes, setThemes] = useState<Theme[]>([]);
@@ -76,28 +86,47 @@ const Themes: React.FC = () => {
     }
   };
 
+  const { isAuthenticated } = useAuth();
+
   return (
-    <div className='content'>
-      <h2>Temas</h2>
-      <ThemesWithCRUD
-        themes={themes}
-        entryActionsProps={{
-          onEdit: handleEditTheme,
-          onDelete: handleDeleteTheme,
-        }}
-        setEditThemeName={setEditThemeName}
-        setThemes={setThemes} // Include setThemes in the props
-      />
-      <div className='adding'>
-        <input
-          type="text"
-          value={newThemeName}
-          onChange={(e) => setNewThemeName(e.target.value)}
-          placeholder="Enter new theme name"
+    <BodyContentContainer>
+			<Title>
+				<h2>Temas</h2>
+      </Title>
+      {isAuthenticated ? (
+        <BodyContentContainer>
+					<ThemesWithCRUD
+          themes={themes}
+          entryActionsProps={{
+            onEdit: handleEditTheme,
+            onDelete: handleDeleteTheme,
+          }}
+          setEditThemeName={setEditThemeName}
+          setThemes={setThemes} 
         />
-        <button onClick={handleAddTheme} className='add-entry-button'>Añadir Tema</button>
-      </div>
-    </div>
+        <div className='adding'>
+          <input
+            type="text"
+            value={newThemeName}
+            onChange={(e) => setNewThemeName(e.target.value)}
+            placeholder="Enter new theme name"
+          />
+          <button onClick={handleAddTheme} className='add-entry-button'>Añadir Tema</button>
+          </div>
+          </BodyContentContainer>
+				) : (
+          <List>
+          {themes.map((theme) => (
+            <ListItem key={theme.id}>
+              <Linked>
+                <Link to={`/temas/${theme.id}`}>{theme.name}</Link>
+              </Linked>
+            </ListItem>
+          ))}
+        </List>
+  
+				)}
+    </BodyContentContainer>
   );
 };
 

@@ -19,7 +19,9 @@ import Podcasts from "./pages/Podcasts";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
 import Posts from "./pages/Posts";
-import SinglePost from './pages/SinglePost';
+import SinglePost from "./pages/SinglePost";
+import Login from "./components/Login";
+import Links from "./pages/Links";
 import Links from "./pages/Links";
 import TikTok from "./pages/TikTok";
 
