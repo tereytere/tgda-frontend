@@ -22,7 +22,6 @@ import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
 import Login from "./components/Login";
 import Links from "./pages/Links";
-import Links from "./pages/Links";
 import TikTok from "./pages/TikTok";
 
 export default function App() {
@@ -40,6 +39,7 @@ export default function App() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/posts/:id" element={<SinglePost />} />
             <Route path="/libros" element={<Books />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/links" element={<Links />} />
             <Route path="/instagram" element={<Instagram />} />
             <Route path="/tiktok" element={<TikTok />} />

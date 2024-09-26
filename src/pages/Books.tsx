@@ -4,15 +4,6 @@ import { Link } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
-import {
-	BodyContentContainer,
-	List,
-	ListItem,
-	Linked,
-	AuthorLink,
-	ReviewContainer,
-} from "../styledComponents/ContentStyles";
-import { BookItem } from "../styledComponents/PostStyles";
 import GoodreadsIcon from "../components/GoodreadsIcon";
 
 const Books: React.FC = () => {
@@ -56,14 +47,8 @@ const Books: React.FC = () => {
 									)}
 									{book.themes && <Themes themes={book.themes} />}
 									{book.url && (
-										<p>Reseñas:
-											<a
-												href={book.url}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												{book.url}
-											</a>
+										<p><span>Reseñas:</span>
+											<GoodreadsIcon url={book.url} />
 										</p>
 									)}
 								</div>
