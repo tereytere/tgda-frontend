@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Author } from "../interfaces/author.interface";
-import AuthorsWithCRUD from "../components/AuthorsWithCRUD";
+//import AuthorsWithCRUD from "../components/AuthorsWithCRUD";
 import {
 	BodyContentContainer,
 	List,
@@ -32,20 +32,20 @@ const Authors: React.FC = () => {
 
 	const { isAuthenticated } = useAuth();
 
-	const handleDelete = async (author: Author) => {
+/* 	const handleDelete = async (author: Author) => {
 		try {
 			await axios.delete(`http://localhost:8000/authors/${author.id}`);
 			setAuthors(authors.filter((a) => a.id !== author.id));
 		} catch (error) {
 			console.error("Error deleting author:", error);
 		}
-	};
+	}; */
 
-	const entryActionsProps = {
+/* 	const entryActionsProps = {
 		onEdit: () => {}, // Placeholder function
 		onDelete: handleDelete,
 	};
-
+ */
 	return (
 		<BodyContentContainer>
 			<Title>
@@ -53,12 +53,12 @@ const Authors: React.FC = () => {
 			</Title>
 			{isAuthenticated ? (
 				<BodyContentContainer>
-					<AuthorsWithCRUD
+{/* 					<AuthorsWithCRUD
 						authors={authors}
 						entryActionsProps={entryActionsProps}
 						setAuthors={setAuthors}
 					/>
-				</BodyContentContainer>
+ */}				</BodyContentContainer>
 			) : (
 				<List>
 					{authors.map((author) => (
