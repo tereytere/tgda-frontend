@@ -20,7 +20,7 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import Pokemon from "./pages/Pokemon";
 import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import Links from "./pages/Links";
 import TikTok from "./pages/TikTok";
 

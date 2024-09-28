@@ -64,8 +64,8 @@ const Login: React.FC = () => {
 							<Form ref={formRef} onSubmit={handleLogin}>
 								<Form.Group className="mb-3">
 									<Form.Control
-										type="text"
-										className="text input"
+										type="email"
+										className="email input"
 										placeholder='Escribe tu Email'
 										name="email"
 										value={email}
