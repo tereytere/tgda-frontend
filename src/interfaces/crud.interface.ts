@@ -1,5 +1,5 @@
-export interface EntryActionsProps<T> {
+export interface EntryActionsProps {
   onAdd?: () => void;
-  onEdit: (item: T) => void;
-  onDelete: (item: T) => void;
+  onEdit: () => void;
+  onDelete: () => void;
 }

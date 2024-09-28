@@ -328,6 +328,69 @@ body {
   flex: 1;
 }
 
+/* Themes styles */
+.themes-container {
+  display: flex;
+  gap: 2rem;
+  padding-left: 2%;
+  flex-wrap: wrap;
+
+  & .theme-item {
+    display: flex;
+    flex-direction: row;
+    min-width: 80vw;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+
+    & .divform {
+      display: flex;
+      gap: 1rem;
+      flex-direction: row;
+      min-width: 80vw;
+    }
+
+    & .divform-buttons {
+      align-items: center;
+      width: 100%;
+      display: flex;
+      gap: 5rem;
+      justify-content: space-between;
+
+      & div {
+        display: flex;
+        gap: 3rem;
+
+        & svg {
+          color: var(--main-background-color);
+        }
+
+      }
+
+    }
+  }
+
+  & a {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 5%;
+    margin-bottom: 1%;
+    text-decoration: none;
+    color: var(--nav-text-color);
+    background-color: var(--nav-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    max-width: calc(33.33% - 2rem);
+    flex: 1 1 100%;
+    text-align: center;
+
+    &:hover {
+      color: var(--text-color);
+      background-color: var(--main-background-color);
+    }
+  }
+}
+
 /* Footer styles */
 .footer {
   margin: 0;
@@ -362,8 +425,11 @@ body {
 
     & .social-media-container {
       display: flex;
+      padding: 0 2%;
+      gap: 0.5rem;
       flex-direction: row;
       align-items: center;
+      min-width: 4rem;
 
       & a {
         display: inline-block;

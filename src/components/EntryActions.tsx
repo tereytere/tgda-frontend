@@ -1,24 +1,14 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { EntryActionsProps } from '../interfaces/crud.interface';
 
-type EntryActionsType<T> = React.FC<EntryActionsProps<T>>;
-
-const EntryActions: EntryActionsType<unknown> = ({ onEdit, onDelete }) => {
-  const handleEditClick = (item: unknown) => {
-    // Pass the item parameter to onEdit
-    onEdit(item);
-  };
-
-  const handleDeleteClick = (item: unknown) => {
-    // Pass the item parameter to onDelete
-    onDelete(item);
-  };
-
+const EntryActions: React.FC<EntryActionsProps> = ({ onEdit, onDelete }) => {
   return (
     <div>
-      {/* Edit and Delete buttons */}
-      <button onClick={() => handleEditClick(null)}>Editar</button>
-      <button onClick={() => handleDeleteClick(null)}>Borrar</button>
+      <Button variant="warning" onClick={onEdit}><FontAwesomeIcon icon={faPen} /></Button>
+      <Button variant="danger" onClick={onDelete}><FontAwesomeIcon icon={faTrash} /></Button>
     </div>
   );
 };
