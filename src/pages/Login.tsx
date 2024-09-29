@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -18,30 +19,18 @@ const Login: React.FC = () => {
 	const handleLogin = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
-			const response = await fetch('http://localhost:8000/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ email, password }),
+			const response = await axios.post('http://localhost:8000/login', {
+				email,
+				password,
 			});
 
-			if (!response.ok) {
-				throw new Error('Error en Login');
-			}
+			const { token, token_type } = response.data.data;
 
-			const data = await response.json();
+			localStorage.setItem('token', token);
+			localStorage.setItem('token_type', token_type);
 
-			const token = data.token;
-
-			// Store the token in localStorage
-			localStorage.setItem("token", token);
-			localStorage.setItem("token_type", data.token_type);
-
-			// Redirect the user after successful login
 			navigate('/');
 
-			// Reset form fields
 			setEmail('');
 			setPassword('');
 
@@ -49,10 +38,14 @@ const Login: React.FC = () => {
 				formRef.current.reset();
 			}
 		} catch (error) {
-			console.error('Error en Login', error);
+			if (axios.isAxiosError(error) && error.response) {
+				console.error('Login error response:', error.response.data);
+				console.error('Error in Login: ' + error.response.data.error);
+			} else {
+				console.error('Error in Login', error);
+			}
 		}
 	};
-
 
 	return (
 		<div className='content'>
