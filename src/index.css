@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('./assets/navbar.css');
+@import url('./assets/map.css');
+
 
 /* Reset default browser styles */
 * {
@@ -10,120 +13,16 @@
 /* Global styles */
 body {
   display: flex;
-  box-sizing: border-box !important;
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Fredoka', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   background-color: var(--main-background-color) !important;
   color: var(--text-color) !important;
-}
-
-/* Navbar styles */
-.navbar {
-  background-color: var(--nav-background-color);
-  border-bottom: 1px solid var(--border-color);
-  color: var(--nav-text-color);
-  margin: 0;
-  top: 0;
-  position: sticky;
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  white-space: nowrap;
-  z-index: 1000;
-}
-
-.nav-container {
-  padding: 1%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.navbar-brand {
-  text-decoration: none;
-  color: var(--nav-text-color);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.navbar-nav {
-  display: flex;
-  padding-left: 2%;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-@media (max-width: 992px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 0;
-  }
-
-  .search-form {
-    margin-bottom: 2%;
-  }
-}
-
-.navbar-a {
-  display: inline-block;
-  text-decoration: none;
-  color: var(--nav-text-color);
-}
-
-.navflex {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  flex-grow: 1;
-}
-
-.search-form {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.search-input {
-  margin-right: 0.5rem;
-}
-
-.search-button {
-  background-color: var(--search-button-color);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  border-radius: 0.5rem;
-
-  &:hover {
-    background-color: var(--nav-background-color);
-    border: 1px solid var(--main-background-color);
-    color: var(--main-background-color);
-  }
 }
 
 /* Content styles */
@@ -144,27 +43,23 @@ body {
   }
 
   & h2 {
-    display: flex;
+    text-align: center;
+
     font-weight: 700;
-    justify-content: space-around;
+  }
 
-    & a {
-      display: inline-block;
-      font-size: 1.25rem;
-      font-weight: 600;
-      padding: 1%;
-      margin-bottom: 1%;
-      text-decoration: none;
-      color: var(--nav-text-color);
-      background-color: var(--nav-background-color);
-      border: 1px solid var(--border-color);
-      border-radius: 0.5rem;
+  p {
+    text-align: center;
+  }
 
-      &:hover {
-        color: var(--text-color);
-        background-color: var(--main-background-color);
-      }
-    }
+  .dirbuttons {
+    display: flex;
+    gap: 3rem;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    margin: 3% 0;
   }
 
   & .links {
@@ -204,39 +99,6 @@ body {
     min-width: 100%;
     flex: 100%;
   }
-}
-
-.leaflet-container {
-  height: 80vh;
-  width: 100wh;
-  z-index: 0;
-}
-
-/* Legend styles */
-.legend {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.legend-item span {
-  margin-left: 5px;
-}
-
-.list {
-  list-style-type: none;
-  padding: 0;
 }
 
 /* Book styles */

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Map from "../components/Map";
+import CustomButton from "../components/CustomButton";
 
 const Home: React.FC = () => {
 	return (
@@ -23,11 +23,11 @@ const Home: React.FC = () => {
 					diferencia. Explora, aprende y comienza hoy mismo a aportar tu
 					granito de arena para construir un futuro más verde y justo.
 				</p>
-				<h2>
-					<Link to="/temas/">Temas</Link>
-					<Link to="/autores/">Autores</Link>
-					<Link to="/posts/">Posts</Link>
-				</h2>
+				<div className="dirbuttons">
+					<CustomButton text="Temas" url="/temas/" />
+					<CustomButton text="Autores" url="/autores/" />
+					<CustomButton text="Posts" url="/posts/" />
+				</div>
 				<Map />
 			</div>
 		</>

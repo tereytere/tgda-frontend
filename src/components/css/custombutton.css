@@ -1,0 +1,19 @@
+.custom.btn-info {
+    --bs-btn-color: var(--main-background-color);
+    --bs-btn-bg: var(--text-color);
+    --bs-btn-border-color: var(--border-color);
+    --bs-btn-hover-color: var(--text-color);
+    --bs-btn-hover-bg: var(--main-background-color);
+    --bs-btn-hover-border-color: var(--text-color);
+    --bs-btn-active-color: var(--main-background-color);
+    --bs-btn-active-bg: var(--text-color);
+    --bs-btn-active-border-color: var(--border-color);
+    --bs-btn-disabled-color: var(--main-background-color);
+    --bs-btn-disabled-bg: var(--text-color);
+    --bs-btn-disabled-border-color: var(--text-color);
+}
+
+.custom.btn {
+    --bs-btn-font-size: 1.15rem;
+    --bs-btn-font-weight: 500;
+}

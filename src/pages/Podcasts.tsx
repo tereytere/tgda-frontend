@@ -5,7 +5,6 @@ import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
 import {
-	BodyContentContainer,
 	List,
 	ListItem,
 	Linked,
@@ -36,7 +35,8 @@ const Podcasts: React.FC = () => {
 	}, []);
 
 	return (
-		<BodyContentContainer>
+		<div className="content">
+			<h2>Podcasts</h2>
 			<List>
 				{podcasts.map((podcast) => (
 					<ListItem key={podcast.id}>
@@ -75,7 +75,7 @@ const Podcasts: React.FC = () => {
 					</ListItem>
 				))}
 			</List>
-		</BodyContentContainer>
+		</div>
 	);
 };
 
