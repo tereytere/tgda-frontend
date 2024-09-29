@@ -7,6 +7,8 @@ import {
 	ListItem,
 	Linked,
 } from "../styledComponents/ContentStyles";
+import { BASE_URL } from '../constants';
+
 
 const Posts: React.FC = () => {
 	const [posts, setPosts] = useState<Post[]>([]);
@@ -14,7 +16,7 @@ const Posts: React.FC = () => {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const response = await axios.get<Post[]>("http://localhost:8000/posts");
+				const response = await axios.get<Post[]>(`${BASE_URL}/posts`);
 				setPosts(response.data);
 			} catch (error) {
 				console.error("Error fetching Posts:", error);

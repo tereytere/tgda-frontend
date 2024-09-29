@@ -32,6 +32,8 @@ import {
 	MultimediaContainer,
 	MultimediaContentContainer,
 } from "../styledComponents/PostStyles";
+import { BASE_URL } from '../constants';
+
 
 const SinglePost: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -46,7 +48,7 @@ const SinglePost: React.FC = () => {
 			try {
 				setLoading(true);
 				const { data: postData } = await axios.get<{ post: Post }>(
-					`http://localhost:8000/posts/${id}`
+					`${BASE_URL}/posts/${id}`
 				);
 
 				const fetchedPost = postData.post;
@@ -76,7 +78,7 @@ const SinglePost: React.FC = () => {
 		fetchPostDetails();
 	}, [id]);
 
-	useEffect(() => {}, [post, author, themes]);
+	useEffect(() => { }, [post, author, themes]);
 
 	if (loading) {
 		return <div>Cargando...</div>;

@@ -16,6 +16,8 @@ import {
 	MultimediaContainer,
 	MultimediaContentContainer,
 } from "../styledComponents/PostStyles";
+import { BASE_URL } from '../constants';
+
 
 const TikTok: React.FC = () => {
 	const [tiktoks, setTiktok] = useState<Post[]>([]);
@@ -24,7 +26,7 @@ const TikTok: React.FC = () => {
 		const fetchTiktok = async () => {
 			try {
 				const response = await axios.get<Post[]>(
-					"http://localhost:8000/posts?type=tiktok"
+					`${BASE_URL}/posts?type=tiktok`
 				);
 				setTiktok(response.data);
 			} catch (error) {

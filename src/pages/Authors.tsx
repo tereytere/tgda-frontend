@@ -9,6 +9,8 @@ import {
 	ListItem,
 	Linked,
 } from "../styledComponents/ContentStyles";
+import { BASE_URL } from '../constants';
+
 
 const Authors: React.FC = () => {
 	const [authors, setAuthors] = useState<Author[]>([]);
@@ -18,7 +20,7 @@ const Authors: React.FC = () => {
 		const fetchAuthors = async () => {
 			try {
 				const response = await axios.get<Author[]>(
-					"http://localhost:8000/authors"
+					`${BASE_URL}/authors`
 				);
 				setAuthors(response.data);
 			} catch (error) {

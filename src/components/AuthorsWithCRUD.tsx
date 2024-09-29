@@ -4,6 +4,8 @@ import { Form, Button } from 'react-bootstrap';
 import { Author } from '../interfaces/author.interface';
 import { Theme } from '../interfaces/theme.interface';
 import EntryActions from '../components/EntryActions';
+import { BASE_URL } from '../constants';
+
 
 interface AuthorsWithCRUDProps {
   authors: Author[];
@@ -45,7 +47,7 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
     if (editAuthor) {
       try {
         const response = await axiosInstance.put(
-          `http://localhost:8000/authors/${editAuthor.id}`,
+          `${BASE_URL}/authors/${editAuthor.id}`,
           editedAuthorData
         );
         const updatedAuthor = response.data;
@@ -70,7 +72,7 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
     if (newAuthorData.name) {
       try {
         const response = await axiosInstance.post(
-          'http://localhost:8000/authors',
+          `${BASE_URL}/authors`,
           newAuthorData
         );
 
@@ -138,7 +140,7 @@ const AuthorsWithCRUD: React.FC<AuthorsWithCRUDProps> = ({
   // Handle deleting an author
   const handleDeleteAuthor = async (author: Author) => {
     try {
-      await axiosInstance.delete(`http://localhost:8000/authors/${author.id}`);
+      await axiosInstance.delete(`${BASE_URL}/authors/${author.id}`);
 
       // Remove deleted author from the state
       const updatedAuthors = authors.filter((item) => item.id !== author.id);

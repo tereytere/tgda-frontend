@@ -19,6 +19,8 @@ import {
 	LeftSection,
 	RightSection,
 } from "../styledComponents/HelpStyles";
+import { BASE_URL } from '../constants';
+
 
 const Help: React.FC = () => {
 	const [theme, setTheme] = useState<Theme | null>(null);
@@ -33,7 +35,7 @@ const Help: React.FC = () => {
 				setLoading(true);
 				// Fetch the theme details by name "ayuda"
 				const themeSearchResponse = await axios.get<Theme[]>(
-					`http://localhost:8000/themes?name=${encodeURIComponent("ayuda")}`
+					`${BASE_URL}/themes?name=${encodeURIComponent("ayuda")}`
 				);
 				const themeData = themeSearchResponse.data.find(
 					(t) => t.name === "ayuda"
@@ -49,7 +51,7 @@ const Help: React.FC = () => {
 
 				// Fetch the related posts and authors for the theme
 				const relatedDataResponse = await axios.get<{ theme: Theme }>(
-					`http://localhost:8000/themes/${themeData.id}`
+					`${BASE_URL}/themes/${themeData.id}`
 				);
 				const fetchedPosts = relatedDataResponse.data.theme.posts;
 				const fetchedAuthors = relatedDataResponse.data.theme.authors;

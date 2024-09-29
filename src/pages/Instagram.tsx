@@ -16,6 +16,8 @@ import {
   MultimediaContainer,
   MultimediaContentContainer,
 } from "../styledComponents/PostStyles";
+import { BASE_URL } from '../constants';
+
 
 const Instagram: React.FC = () => {
   const [instagrams, setInstagram] = useState<Post[]>([]);
@@ -24,7 +26,7 @@ const Instagram: React.FC = () => {
     const fetchInstagram = async () => {
       try {
         const response = await axios.get<Post[]>(
-          "http://localhost:8000/posts?type=instagram"
+          `${BASE_URL}/posts?type=instagram`
         );
         setInstagram(response.data);
       } catch (error) {

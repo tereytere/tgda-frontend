@@ -19,6 +19,8 @@ import {
 	VideoTextContainer,
 } from "../styledComponents/VideoStyles";
 import { StyledIcon } from "../styledComponents/PostStyles";
+import { BASE_URL } from '../constants';
+
 
 const Movies: React.FC = () => {
 	const [movies, setMovies] = useState<Post[]>([]);
@@ -27,7 +29,7 @@ const Movies: React.FC = () => {
 		const fetchMovies = async () => {
 			try {
 				const response = await axios.get<Post[]>(
-					"http://localhost:8000/posts?type=película"
+					`${BASE_URL}/posts?type=película`
 				);
 				setMovies(response.data);
 			} catch (error) {

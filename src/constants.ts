@@ -14,6 +14,8 @@ import {
 } from "@mui/material/colors";
 import { IndexedType } from "./interfaces/pokemon.interface";
 
+export const BASE_URL = 'http://localhost:8000';
+
 export const POKEMON_API_BASE_URL = "https://pokeapi.co/api/v2";
 export const POKEMON_API_POKEMON_URL = `${POKEMON_API_BASE_URL}/pokemon`;
 export const POKEMON_IMAGES_BASE_URL =

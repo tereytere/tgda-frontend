@@ -8,6 +8,8 @@ import {
   ListItem,
   Linked,
 } from "../styledComponents/ContentStyles";
+import { BASE_URL } from '../constants';
+
 
 const Themes: React.FC = () => {
   const [themes, setThemes] = useState<Theme[]>([]);
@@ -18,7 +20,7 @@ const Themes: React.FC = () => {
 
   const fetchThemes = async () => {
     try {
-      const response = await axios.get<Theme[]>('http://localhost:8000/themes');
+      const response = await axios.get<Theme[]>(`${BASE_URL}/themes`);
       setThemes(response.data);
     } catch (error) {
       console.error('Error fetching themes:', error);

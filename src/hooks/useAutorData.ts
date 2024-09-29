@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Author } from "../interfaces/author.interface";
 import { Post } from "../interfaces/post.interface";
+import { BASE_URL } from '../constants';
+
 
 export const useAutorData = (authorId: string) => {
   const [author, setAuthor] = useState<Author | null>(null);
@@ -11,7 +13,7 @@ export const useAutorData = (authorId: string) => {
     const fetchAuthor = async () => {
       try {
         const response = await axios.get<Author>(
-          `http://localhost:8000/authors`,
+          `${BASE_URL}/authors`,
           {
             params: {
               authorId: authorId,
@@ -27,7 +29,7 @@ export const useAutorData = (authorId: string) => {
     const fetchAuthorPosts = async () => {
       try {
         const response = await axios.get<Post[]>(
-          `http://localhost:8000/posts`,
+          `${BASE_URL}/posts`,
           {
             params: {
               author_id: authorId,

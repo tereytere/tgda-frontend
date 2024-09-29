@@ -5,6 +5,8 @@ import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
 import GoodreadsIcon from "../components/GoodreadsIcon";
+import { BASE_URL } from '../constants';
+
 
 const Books: React.FC = () => {
 	const [books, setBooks] = useState<Post[]>([]);
@@ -13,7 +15,7 @@ const Books: React.FC = () => {
 		const fetchBooks = async () => {
 			try {
 				const response = await axios.get<Post[]>(
-					"http://localhost:8000/posts?type=libro"
+					`${BASE_URL}/posts?type=libro`
 				);
 				setBooks(response.data);
 			} catch (error) {

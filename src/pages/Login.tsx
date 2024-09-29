@@ -9,6 +9,8 @@ import {
 	LoginButtonContainer,
 	SubmitButton
 } from "../styledComponents/LoginStyles";
+import { BASE_URL } from '../constants';
+
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState('');
@@ -19,7 +21,7 @@ const Login: React.FC = () => {
 	const handleLogin = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
-			const response = await axios.post('http://localhost:8000/login', {
+			const response = await axios.post(`${BASE_URL}/login`, {
 				email,
 				password,
 			});

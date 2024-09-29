@@ -7,10 +7,12 @@ import {
 	List,
 	ListItem,
 	Linked,
-  Title,
-  ResultsContainer,
-  ResultsTitle
+	Title,
+	ResultsContainer,
+	ResultsTitle
 } from "../styledComponents/ContentStyles";
+import { BASE_URL } from '../constants';
+
 
 const SearchResultsPage: React.FC = () => {
 	const [searchQuery, setSearchQuery] = useState<string>("");
@@ -34,7 +36,7 @@ const SearchResultsPage: React.FC = () => {
 
 			try {
 				const response = await axios.get<SearchResults>(
-					"http://localhost:8000/search",
+					`${BASE_URL}/search`,
 					{
 						params: { query: searchQuery },
 					}

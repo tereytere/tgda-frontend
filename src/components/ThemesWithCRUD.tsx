@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
 import { Theme } from '../interfaces/theme.interface';
 import EntryActions from '../components/EntryActions';
+import { BASE_URL } from '../constants';
+
 
 interface ThemesWithCRUDProps {
   themes: Theme[];
@@ -38,7 +40,7 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps> = ({
     if (editTheme) {
       try {
         const response = await axiosInstance.put(
-          `http://localhost:8000/themes/${editTheme.id}`,
+          `${BASE_URL}/themes/${editTheme.id}`,
           { name: editedThemeName }
         );
 
@@ -62,7 +64,7 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps> = ({
   // Handle deleting a theme
   const handleDeleteTheme = async (theme: Theme) => {
     try {
-      await axiosInstance.delete(`http://localhost:8000/themes/${theme.id}`);
+      await axiosInstance.delete(`${BASE_URL}/themes/${theme.id}`);
       const updatedThemes = themes.filter(item => item.id !== theme.id);
       setThemes(updatedThemes);
     } catch (error) {
@@ -74,7 +76,7 @@ const ThemesWithCRUD: React.FC<ThemesWithCRUDProps> = ({
   const handleAddTheme = async () => {
     if (newThemeName) {
       try {
-        const response = await axiosInstance.post('http://localhost:8000/themes', {
+        const response = await axiosInstance.post(`${BASE_URL}/themes`, {
           name: newThemeName,
         });
 

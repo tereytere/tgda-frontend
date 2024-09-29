@@ -15,6 +15,8 @@ import {
 	ContentContainer,
 	VideoTextContainer,
 } from "../styledComponents/PodcastStyles";
+import { BASE_URL } from '../constants';
+
 
 const Podcasts: React.FC = () => {
 	const [podcasts, setPodcast] = useState<Post[]>([]);
@@ -23,7 +25,7 @@ const Podcasts: React.FC = () => {
 		const fetchPodcast = async () => {
 			try {
 				const response = await axios.get<Post[]>(
-					"http://localhost:8000/posts?type=podcast"
+					`${BASE_URL}/posts?type=podcast`
 				);
 				setPodcast(response.data);
 			} catch (error) {

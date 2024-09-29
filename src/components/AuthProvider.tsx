@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../constants';
+
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -25,7 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const verifyToken = async (token: string) => {
         try {
-            const response = await axios.get('http://localhost:8000/verify-token', {
+            const response = await axios.get(`${BASE_URL}/verify-token`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.status === 200) {
@@ -40,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (credentials: { email: string; password: string }) => {
         try {
-            const response = await axios.post('http://localhost:8000/login', credentials, {
+            const response = await axios.post(`${BASE_URL}/login`, credentials, {
                 withCredentials: true,
             });
             const { token } = response.data;

@@ -13,6 +13,8 @@ import {
 	ResultsTitle,
 	ResultsContainer,
 } from "../styledComponents/ContentStyles";
+import { BASE_URL } from '../constants';
+
 
 const Tema: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -26,12 +28,12 @@ const Tema: React.FC = () => {
 		const fetchThemeDetails = async () => {
 			try {
 				setLoading(true);
-				
+
 				// Fetch the theme details, posts, and authors
 				const { data: themeData } = await axios.get<{ theme: Theme }>(
-					`http://localhost:8000/themes/${id}`
+					`${BASE_URL}/themes/${id}`
 				);
-				
+
 				const fetchedTheme = themeData.theme;
 				const fetchedPosts = fetchedTheme.posts || [];
 				const fetchedAuthors = fetchedTheme.authors || [];
@@ -66,9 +68,9 @@ const Tema: React.FC = () => {
 
 	return (
 		<BodyContentContainer>
-				<Title>
-					<h2>{theme.name}</h2>
-				</Title>
+			<Title>
+				<h2>{theme.name}</h2>
+			</Title>
 			<ResultsContainer>
 				<ResultsTitle>
 					<h3>Posts</h3>

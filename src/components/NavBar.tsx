@@ -3,6 +3,8 @@ import axios, { AxiosError } from 'axios';
 import { Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { SearchResults } from '../interfaces/search.interface';
+import { BASE_URL } from '../constants';
+
 
 export default function NavBar() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +15,7 @@ export default function NavBar() {
     e.preventDefault();
 
     try {
-      const response = await axios.get<SearchResults>('http://localhost:8000/search', {
+      const response = await axios.get<SearchResults>(`${BASE_URL}/search`, {
         params: { query: searchQuery }
       });
 
