@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
 import { Theme } from '../interfaces/theme.interface';
 import EntryActions from '../components/EntryActions';
-import '../components/css/themes.css';
 
 interface ThemesWithCRUDProps {
   themes: Theme[];

@@ -3,11 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import {
-	BodyContentContainer,
 	List,
 	ListItem,
 	Linked,
-	Title,
 } from "../styledComponents/ContentStyles";
 
 const Posts: React.FC = () => {
@@ -27,10 +25,8 @@ const Posts: React.FC = () => {
 	}, []);
 
 	return (
-		<BodyContentContainer>
-			<Title>
-				<h2>Posts</h2>
-			</Title>
+		<div className='content'>
+			<h2>Posts</h2>
 			<List>
 				{posts.map((post) => (
 					<ListItem key={post.id}>
@@ -40,7 +36,7 @@ const Posts: React.FC = () => {
 					</ListItem>
 				))}
 			</List>
-		</BodyContentContainer>
+		</div>
 	);
 };
 

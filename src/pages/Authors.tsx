@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import { Author } from "../interfaces/author.interface";
-//import AuthorsWithCRUD from "../components/AuthorsWithCRUD";
+import { Theme } from '../interfaces/theme.interface';
+import AuthorsWithCRUD from "../components/AuthorsWithCRUD";
 import {
-	BodyContentContainer,
 	List,
 	ListItem,
 	Linked,
-	Title,
 } from "../styledComponents/ContentStyles";
 
 const Authors: React.FC = () => {
 	const [authors, setAuthors] = useState<Author[]>([]);
+	const [themes, setThemes] = useState<Theme[]>([]);
 
 	useEffect(() => {
 		const fetchAuthors = async () => {
@@ -30,35 +29,14 @@ const Authors: React.FC = () => {
 		fetchAuthors();
 	}, []);
 
-	const { isAuthenticated } = useAuth();
+	const token = localStorage.getItem('token');
 
-/* 	const handleDelete = async (author: Author) => {
-		try {
-			await axios.delete(`http://localhost:8000/authors/${author.id}`);
-			setAuthors(authors.filter((a) => a.id !== author.id));
-		} catch (error) {
-			console.error("Error deleting author:", error);
-		}
-	}; */
 
-/* 	const entryActionsProps = {
-		onEdit: () => {}, // Placeholder function
-		onDelete: handleDelete,
-	};
- */
 	return (
-		<BodyContentContainer>
-			<Title>
-				<h2>Autores</h2>
-			</Title>
-			{isAuthenticated ? (
-				<BodyContentContainer>
-{/* 					<AuthorsWithCRUD
-						authors={authors}
-						entryActionsProps={entryActionsProps}
-						setAuthors={setAuthors}
-					/>
- */}				</BodyContentContainer>
+		<div className='content'>
+			<h2>Autores</h2>
+			{token ? (
+				<AuthorsWithCRUD authors={authors} setAuthors={setAuthors} themes={themes} setThemes={setThemes} />
 			) : (
 				<List>
 					{authors.map((author) => (
@@ -70,7 +48,7 @@ const Authors: React.FC = () => {
 					))}
 				</List>
 			)}
-		</BodyContentContainer>
+		</div>
 	);
 };
 
