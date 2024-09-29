@@ -4,6 +4,18 @@ import { Link } from "react-router-dom";
 import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
+import { TikTokEmbed } from "react-social-media-embed";
+import {
+	List,
+	ListItem,
+	Linked,
+	AuthorLink,
+} from "../styledComponents/ContentStyles";
+import {
+	MultimediaTextContainer,
+	MultimediaContainer,
+	MultimediaContentContainer,
+} from "../styledComponents/PostStyles";
 
 const TikTok: React.FC = () => {
 	const [tiktoks, setTiktok] = useState<Post[]>([]);
@@ -20,46 +32,46 @@ const TikTok: React.FC = () => {
 			}
 		};
 
-		//https://www.tiktok.com/@theveganeater.es/video/7405981822309502240
-
 		fetchTiktok();
 	}, []);
 
 	return (
-		<>
-			<div className='content'>
-				<ul className='list'>
-					{tiktoks.map((tiktok) => (
-						<li key={tiktok.id}>
-							<h3>{tiktok.title}</h3>
-							<p>{tiktok.body}</p>
-							{tiktok.image && (
-								<img src={tiktok.image} alt={tiktok.title} />
-							)}
-							{tiktok.url && (
-								<p>
-									<a
-										href={tiktok.url}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										{tiktok.url}
-									</a>
-								</p>
-							)}
-							{typeof tiktok.author === "object" && (
-								<h4>
-									<Link to={`/autor/${(tiktok.author as Author).id}`}>
-										{(tiktok.author as Author).name}
-									</Link>
-								</h4>
-							)}
-							{tiktok.themes && <Themes themes={tiktok.themes} />}
-						</li>
-					))}
-				</ul>
-			</div>
-		</>
+		<div className='content'>
+			<h2>TikTok</h2>
+			<List>
+				{tiktoks.map((tiktok) => (
+					<ListItem key={tiktok.id}>
+						<Linked>
+							<h3 className="linked">
+								<Link to={`/posts/${tiktok.id}`}>{tiktok.title}</Link>
+							</h3>
+						</Linked>
+						<MultimediaTextContainer>
+							<MultimediaContainer>
+								{tiktok.image && (
+									<div style={{ display: "flex", justifyContent: "left" }}>
+										<TikTokEmbed url={tiktok.image} width={325} />
+									</div>
+								)}
+							</MultimediaContainer>
+							<MultimediaContentContainer>
+								<p>{tiktok.body}</p>
+								<AuthorLink>
+									{typeof tiktok.author === "object" && (
+										<h4 className="author-link">
+											<Link to={`/autor/${(tiktok.author as Author).id}`}>
+												{(tiktok.author as Author).name}
+											</Link>
+										</h4>
+									)}
+								</AuthorLink>
+								{tiktok.themes && <Themes themes={tiktok.themes} />}
+							</MultimediaContentContainer>
+						</MultimediaTextContainer>
+					</ListItem>
+				))}
+			</List>
+		</div>
 	);
 };
 

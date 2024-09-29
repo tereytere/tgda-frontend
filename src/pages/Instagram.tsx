@@ -5,9 +5,7 @@ import { Post } from "../interfaces/post.interface";
 import { Author } from "../interfaces/author.interface";
 import Themes from "../components/Themes";
 import { InstagramEmbed } from "react-social-media-embed";
-import { TikTokEmbed } from "react-social-media-embed";
 import {
-  BodyContentContainer,
   List,
   ListItem,
   Linked,
@@ -38,7 +36,8 @@ const Instagram: React.FC = () => {
   }, []);
 
   return (
-    <BodyContentContainer>
+    <div className='content'>
+      <h2>Instagram</h2>
       <List>
         {instagrams.map((instagram) => (
           <ListItem key={instagram.id}>
@@ -52,11 +51,6 @@ const Instagram: React.FC = () => {
                 {instagram.image && (
                   <div style={{ display: "flex", justifyContent: "left" }}>
                     <InstagramEmbed url={instagram.image} width={328} />
-                  </div>
-                )}
-                {instagram.url && (
-                  <div style={{ display: "flex", justifyContent: "left" }}>
-                    <TikTokEmbed url={instagram.url} width={325} />
                   </div>
                 )}
               </MultimediaContainer>
@@ -77,7 +71,7 @@ const Instagram: React.FC = () => {
           </ListItem>
         ))}
       </List>
-    </BodyContentContainer>
+    </div>
   );
 };
 
